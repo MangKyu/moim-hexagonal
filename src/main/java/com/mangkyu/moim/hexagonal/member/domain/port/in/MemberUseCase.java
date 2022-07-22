@@ -1,7 +1,7 @@
 package com.mangkyu.moim.hexagonal.member.domain.port.in;
 
-import com.mangkyu.moim.hexagonal.member.adapter.web.AddMemberRequest;
+import com.mangkyu.moim.hexagonal.member.domain.Member;
 
 public interface MemberUseCase {
-    void addMember(final AddMemberRequest addMemberRequest);
+    void addMember(final Member member);
 }
