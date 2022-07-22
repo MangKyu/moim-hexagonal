@@ -1,6 +1,7 @@
 package com.mangkyu.moim.hexagonal.member.adapter.web;
 
 import com.mangkyu.moim.hexagonal.member.application.MemberService;
+import com.mangkyu.moim.hexagonal.member.domain.port.in.MemberUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,11 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 class MemberWebAdapter {
 
-    private final MemberService memberService;
+    private final MemberUseCase memberUseCase;
 
     @PostMapping("/api/members")
     public ResponseEntity<Void> addMember(@RequestBody @Valid final AddMemberRequest addMemberRequest) {
-        memberService.addMember(addMemberRequest);
+        memberUseCase.addMember(addMemberRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .build();

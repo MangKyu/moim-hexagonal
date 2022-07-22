@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static com.mangkyu.moim.hexagonal.member.MemberTestSource.addMemberRequest;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
@@ -24,14 +25,11 @@ class MemberWebAdapterTest {
     @CsvSource({
             "mangkyu,,dkssudgktpdy123!@#", ",dkssudgktpdy123!@#",
             "mangkyu@naver.com,", "mangkyu@naver.com, gk13!@", "mangkyu@naver.com, 123123@#", "mangkyu@naver.com, dkssudgktpdy123", "mangkyu@naver.com, gkdsgasdg!@"
-
     })
+
     @ParameterizedTest
     void 사용자추가실패_잘못된파라미터(final String email, final String password) throws Exception {
-        final AddMemberRequest addMemberRequest = AddMemberRequest.builder()
-                .email(email)
-                .password(password)
-                .build();
+        final AddMemberRequest addMemberRequest = addMemberRequest(email, password);
 
         final ResultActions result = target.perform(MockMvcRequestBuilders.post("/api/members")
                 .content(gson.toJson(addMemberRequest))
@@ -42,10 +40,7 @@ class MemberWebAdapterTest {
 
     @Test
     void 사용자추가성공() throws Exception {
-        final AddMemberRequest addMemberRequest = AddMemberRequest.builder()
-                .email("mangkyu@naver.com")
-                .password("dkssudgktpdy123!@#")
-                .build();
+        final AddMemberRequest addMemberRequest = addMemberRequest();
 
         final ResultActions result = target.perform(MockMvcRequestBuilders.post("/api/members")
                 .content(gson.toJson(addMemberRequest))
