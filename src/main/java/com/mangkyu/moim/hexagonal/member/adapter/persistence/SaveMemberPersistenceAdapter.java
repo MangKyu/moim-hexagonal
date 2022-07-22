@@ -15,8 +15,9 @@ public class SaveMemberPersistenceAdapter implements SaveMemberPort {
     private final MemberRepository memberRepository;
 
     @Override
-    public void save(final Member member) {
-        memberRepository.save(MemberConverter.INSTANCE.toMemberEntity(member));
+    public Member save(final Member member) {
+        final MemberEntity memberEntity = memberRepository.save(MemberConverter.INSTANCE.toMemberEntity(member));
+        return MemberConverter.INSTANCE.toMember(memberEntity);
     }
 
 }

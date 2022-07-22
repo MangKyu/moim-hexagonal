@@ -1,6 +1,8 @@
 package com.mangkyu.moim.hexagonal.member.adapter.web;
 
 import com.google.gson.Gson;
+import com.mangkyu.moim.hexagonal.member.domain.Member;
+import com.mangkyu.moim.hexagonal.member.domain.port.in.MemberUseCase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -12,6 +14,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.mangkyu.moim.hexagonal.member.MemberTestSource.addMemberRequest;
+import static com.mangkyu.moim.hexagonal.member.MemberTestSource.member;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
@@ -21,6 +26,8 @@ class MemberWebAdapterTest {
     private MockMvc target;
     @Autowired
     private Gson gson;
+    @Autowired
+    private MemberUseCase memberUseCase;
 
     @CsvSource({
             "mangkyu,,dkssudgktpdy123!@#", ",dkssudgktpdy123!@#",
@@ -41,6 +48,11 @@ class MemberWebAdapterTest {
     @Test
     void 사용자추가성공() throws Exception {
         final AddMemberRequest addMemberRequest = addMemberRequest();
+
+        doReturn(member())
+                .when(memberUseCase)
+                .addMember(any(Member.class));
+
 
         final ResultActions result = target.perform(MockMvcRequestBuilders.post("/api/members")
                 .content(gson.toJson(addMemberRequest))

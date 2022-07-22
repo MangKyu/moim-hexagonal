@@ -12,8 +12,8 @@ public class MemberService implements MemberUseCase {
 
     private final SaveMemberPort saveMemberPort;
 
-    public void addMember(final Member member) {
-        saveMemberPort.save(member);
+    public Member addMember(final Member member) {
+        return saveMemberPort.save(member);
     }
 
 }

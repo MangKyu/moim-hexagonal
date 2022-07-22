@@ -2,6 +2,7 @@ package com.mangkyu.moim.hexagonal.member.converter;
 
 import com.mangkyu.moim.hexagonal.member.adapter.persistence.MemberEntity;
 import com.mangkyu.moim.hexagonal.member.adapter.web.AddMemberRequest;
+import com.mangkyu.moim.hexagonal.member.adapter.web.AddMemberResponse;
 import com.mangkyu.moim.hexagonal.member.domain.Member;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -15,4 +16,7 @@ public interface MemberConverter {
 
     MemberEntity toMemberEntity(final Member member);
 
+    Member toMember(MemberEntity memberEntity);
+
+    AddMemberResponse toAddMemberResponse(Member member);
 }

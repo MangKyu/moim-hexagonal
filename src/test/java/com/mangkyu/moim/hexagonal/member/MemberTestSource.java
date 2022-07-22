@@ -14,6 +14,7 @@ public class MemberTestSource {
 
     public static Member member() {
         return Member.builder()
+                .id(1L)
                 .email("mangkyu@naver.com")
                 .password("dkssudgktpdy123!@#")
                 .build();
