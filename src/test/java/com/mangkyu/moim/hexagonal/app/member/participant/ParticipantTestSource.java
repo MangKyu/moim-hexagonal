@@ -11,6 +11,7 @@ public class ParticipantTestSource {
 
     public static Participant participant() {
         return Participant.builder()
+                .id(1L)
                 .limitedIngredient("제한재료")
                 .introduce("자기소개")
                 .member(MemberTestSource.member())
