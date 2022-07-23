@@ -22,12 +22,14 @@ class LoginUseCaseTest {
     private LoginUseCase target;
     private LoadMemberPort loadMemberPort;
     private PasswordEncoder passwordEncoder;
+    private GenerateLoginTokenUseCase generateLoginTokenUseCase;
 
     @BeforeEach
     void setUp() {
         loadMemberPort = mock(LoadMemberPort.class);
         passwordEncoder = spy(BCryptPasswordEncoder.class);
-        target = new LoginService(loadMemberPort, passwordEncoder);
+        generateLoginTokenUseCase = mock(GenerateLoginTokenUseCase.class);
+        target = new LoginService(loadMemberPort, passwordEncoder, generateLoginTokenUseCase);
     }
 
     @Test
@@ -72,6 +74,10 @@ class LoginUseCaseTest {
         doReturn(member)
                 .when(loadMemberPort)
                 .findByEmail(login.getEmail());
+
+        doReturn("token")
+                .when(generateLoginTokenUseCase)
+                .generate(login.getEmail());
 
         final String result = target.login(login);
         assertThat(result).isNotNull();
