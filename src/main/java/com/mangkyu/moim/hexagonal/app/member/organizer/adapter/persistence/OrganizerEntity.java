@@ -1,15 +1,14 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence;
 
 import com.mangkyu.moim.hexagonal.app.member.adapter.persistence.MemberEntity;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Delegate;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class OrganizerEntity {
@@ -20,7 +19,8 @@ public class OrganizerEntity {
 
     private String belongs;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @Delegate
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private MemberEntity member;
 
 }

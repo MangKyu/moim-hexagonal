@@ -14,4 +14,6 @@ public interface OrganizerConverter {
     @Mapping(source = "organizer.id", target = "id")
     OrganizerEntity toOrganizerEntity(final Organizer organizer);
 
+    @Mapping(source = "organizerEntity.id", target = "id")
+    Organizer toOrganizer(OrganizerEntity organizerEntity);
 }

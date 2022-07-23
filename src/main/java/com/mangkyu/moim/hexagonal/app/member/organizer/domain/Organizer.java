@@ -4,6 +4,7 @@ import com.mangkyu.moim.hexagonal.app.member.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.Delegate;
 
 @Getter
 @Builder
@@ -12,6 +13,8 @@ public class Organizer {
 
     private Long id;
     private String belongs;
+
+    @Delegate
     private Member member;
 
 }
