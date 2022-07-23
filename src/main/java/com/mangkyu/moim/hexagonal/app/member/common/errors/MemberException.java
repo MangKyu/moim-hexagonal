@@ -7,6 +7,10 @@ import org.springframework.boot.logging.LogLevel;
 @Getter
 public class MemberException extends CommonException {
 
+    public MemberException(final MemberErrorCode errorCode) {
+        super(LogLevel.INFO, errorCode);
+    }
+
     public MemberException(final LogLevel logLevel, final MemberErrorCode errorCode) {
         super(logLevel, errorCode);
     }

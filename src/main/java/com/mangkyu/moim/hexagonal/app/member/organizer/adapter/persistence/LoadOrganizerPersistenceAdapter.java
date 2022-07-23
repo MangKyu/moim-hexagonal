@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 @Transactional
 @RequiredArgsConstructor
@@ -23,4 +25,11 @@ public class LoadOrganizerPersistenceAdapter implements LoadOrganizerPort {
 
         return OrganizerConverter.INSTANCE.toOrganizer(organizerEntity);
     }
+
+    @Override
+    public Optional<Organizer> findById(final Long id) {
+        return organizerRepository.findByMember_Id(id)
+                .map(OrganizerConverter.INSTANCE::toOrganizer);
+    }
+
 }

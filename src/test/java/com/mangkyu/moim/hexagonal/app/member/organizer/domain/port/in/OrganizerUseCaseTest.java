@@ -13,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Optional;
+
 import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.organizer;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,6 +36,34 @@ class OrganizerUseCaseTest {
         loadOrganizerPort = mock(LoadOrganizerPort.class);
         passwordEncoder = spy(BCryptPasswordEncoder.class);
         target = new OrganizerService(saveOrganizerPort, loadOrganizerPort, passwordEncoder);
+    }
+
+    @Test
+    void 구성원수정_존재하지않음() {
+        final Organizer organizer = organizer();
+        doThrow(new MemberException(MemberErrorCode.NOT_EXIST_MEMBER))
+                .when(loadOrganizerPort)
+                .findById(organizer.getId());
+
+        final MemberException result = assertThrows(
+                MemberException.class,
+                () -> target.modifyOrganizer(organizer.getId(), organizer));
+
+        assertThat(result.getErrorCode()).isEqualTo(MemberErrorCode.NOT_EXIST_MEMBER);
+    }
+
+    @Test
+    void 구성원수정성공() {
+        final Organizer organizer = organizer();
+        doReturn(Optional.of(organizer))
+                .when(loadOrganizerPort)
+                .findById(organizer.getId());
+
+        doReturn(organizer)
+                .when(saveOrganizerPort)
+                .save(any(Organizer.class));
+
+        target.modifyOrganizer(organizer.getId(), organizer);
     }
 
     @Test

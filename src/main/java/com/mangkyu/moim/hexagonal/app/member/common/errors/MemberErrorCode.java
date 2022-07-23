@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 @ToString
 public enum MemberErrorCode implements ErrorCode {
 
+    NOT_EXIST_MEMBER(HttpStatus.NOT_FOUND, "Member is not exists"),
     DUPLICATE_LOGINID(HttpStatus.BAD_REQUEST, "Email is duplicated"),
     ;
 
