@@ -11,8 +11,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
-import java.util.Map;
 
+import static com.mangkyu.moim.hexagonal.app.member.MemberRestAssuredTestSource.구성원추가;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @AcceptanceTest
@@ -65,18 +65,5 @@ class MemberAcceptanceTest {
         return response.body().jsonPath().getList("members.id", Long.class);
     }
 
-
-    private ExtractableResponse<Response> 구성원추가(final String email, final String password) {
-        return RestAssured.given().log().all()
-                .body(addMemberParams(email, password))
-                .contentType(ContentType.JSON)
-                .when().post("/api/members")
-                .then().log().all()
-                .extract();
-    }
-
-    private static Map<String, Object> addMemberParams(final String email, final String password) {
-        return Map.of("email", email, "password", password);
-    }
 
 }
