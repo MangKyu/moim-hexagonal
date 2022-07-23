@@ -5,7 +5,7 @@ import com.mangkyu.moim.hexagonal.app.login.domain.in.GenerateLoginTokenUseCase;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.LoginUseCase;
 import com.mangkyu.moim.hexagonal.app.login.errors.LoginErrorCode;
 import com.mangkyu.moim.hexagonal.app.login.errors.LoginException;
-import com.mangkyu.moim.hexagonal.app.member.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.domain.port.out.LoadMemberPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.logging.LogLevel;
@@ -23,7 +23,7 @@ public class LoginService implements LoginUseCase {
 
     @Override
     public String login(final Login login) {
-        final Member member = loadMemberPort.findByEmail(login.getEmail());
+        final Member member = loadMemberPort.findByLoginId(login.getEmail());
         if (member == null) {
             throw new LoginException(LogLevel.INFO, LoginErrorCode.INVALID_EMAIL_OR_PASSWORD);
         }

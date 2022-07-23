@@ -1,8 +1,8 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer;
 
-import com.mangkyu.moim.hexagonal.app.member.MemberTestSource;
-import com.mangkyu.moim.hexagonal.app.member.domain.Gender;
-import com.mangkyu.moim.hexagonal.app.member.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerEntity;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRequest;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;

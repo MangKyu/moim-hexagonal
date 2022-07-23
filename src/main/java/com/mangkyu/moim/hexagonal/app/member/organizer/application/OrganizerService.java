@@ -1,7 +1,7 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.application;
 
-import com.mangkyu.moim.hexagonal.app.member.errors.MemberErrorCode;
-import com.mangkyu.moim.hexagonal.app.member.errors.MemberException;
+import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberErrorCode;
+import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberException;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.port.in.OrganizerUseCase;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.port.out.LoadOrganizerPort;

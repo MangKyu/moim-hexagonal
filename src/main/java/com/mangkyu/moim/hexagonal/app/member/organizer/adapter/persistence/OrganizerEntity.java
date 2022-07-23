@@ -1,6 +1,6 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence;
 
-import com.mangkyu.moim.hexagonal.app.member.adapter.persistence.MemberEntity;
+import com.mangkyu.moim.hexagonal.app.member.common.adapter.persistence.MemberEntity;
 import lombok.*;
 import lombok.experimental.Delegate;
 

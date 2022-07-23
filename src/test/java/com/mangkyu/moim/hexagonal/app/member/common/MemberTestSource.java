@@ -1,9 +1,9 @@
-package com.mangkyu.moim.hexagonal.app.member;
+package com.mangkyu.moim.hexagonal.app.member.common;
 
-import com.mangkyu.moim.hexagonal.app.member.adapter.persistence.MemberEntity;
-import com.mangkyu.moim.hexagonal.app.member.converter.MemberConverter;
-import com.mangkyu.moim.hexagonal.app.member.domain.Gender;
-import com.mangkyu.moim.hexagonal.app.member.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.adapter.persistence.MemberEntity;
+import com.mangkyu.moim.hexagonal.app.member.common.converter.MemberConverter;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;

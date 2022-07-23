@@ -1,12 +1,11 @@
-package com.mangkyu.moim.hexagonal.app.member.converter;
+package com.mangkyu.moim.hexagonal.app.member.common.converter;
 
-import com.mangkyu.moim.hexagonal.app.member.adapter.persistence.MemberEntity;
-import com.mangkyu.moim.hexagonal.app.member.domain.Member;
-import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddMemberResponse;
+import com.mangkyu.moim.hexagonal.app.member.common.adapter.persistence.MemberEntity;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import static com.mangkyu.moim.hexagonal.app.member.MemberTestSource.member;
+import static com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource.member;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -34,17 +33,6 @@ class MemberConverterTest {
                 () -> assertThat(member.getId()).isEqualTo(memberEntity.getId()),
                 () -> assertThat(member.getEmail()).isEqualTo(memberEntity.getEmail()),
                 () -> assertThat(member.getPassword()).isEqualTo(memberEntity.getPassword())
-        );
-    }
-
-    @Test
-    void Member에서AddMemberResponse로변환() {
-        final Member member = member();
-        final AddMemberResponse response = MemberConverter.INSTANCE.toAddMemberResponse(member);
-
-        assertAll(
-                () -> assertThat(response.getId()).isEqualTo(member.getId()),
-                () -> assertThat(response.getEmail()).isEqualTo(member.getEmail())
         );
     }
 

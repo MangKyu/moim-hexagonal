@@ -1,13 +1,13 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.converter;
 
-import com.mangkyu.moim.hexagonal.app.member.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerEntity;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRequest;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerResponse;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import org.junit.jupiter.api.Test;
 
-import static com.mangkyu.moim.hexagonal.app.member.MemberTestSource.member;
+import static com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource.member;
 import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.*;
 import static org.assertj.core.api.Assertions.assertThat;
 

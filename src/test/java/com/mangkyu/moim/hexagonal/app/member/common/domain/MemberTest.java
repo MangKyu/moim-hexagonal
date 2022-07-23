@@ -1,9 +1,9 @@
-package com.mangkyu.moim.hexagonal.app.member.domain;
+package com.mangkyu.moim.hexagonal.app.member.common.domain;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import static com.mangkyu.moim.hexagonal.app.member.MemberTestSource.member;
+import static com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource.member;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MemberTest {

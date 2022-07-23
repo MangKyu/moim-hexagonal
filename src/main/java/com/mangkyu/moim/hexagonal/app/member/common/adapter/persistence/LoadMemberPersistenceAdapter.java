@@ -1,8 +1,8 @@
-package com.mangkyu.moim.hexagonal.app.member.adapter.persistence;
+package com.mangkyu.moim.hexagonal.app.member.common.adapter.persistence;
 
+import com.mangkyu.moim.hexagonal.app.member.common.converter.MemberConverter;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.domain.port.out.LoadMemberPort;
-import com.mangkyu.moim.hexagonal.app.member.converter.MemberConverter;
-import com.mangkyu.moim.hexagonal.app.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ public class LoadMemberPersistenceAdapter implements LoadMemberPort {
     private final MemberRepository memberRepository;
 
     @Override
-    public Member findByEmail(final String email) {
+    public Member findByLoginId(final String email) {
         final MemberEntity memberEntity = memberRepository.findByEmail(email);
         if (memberEntity == null) {
             return null;

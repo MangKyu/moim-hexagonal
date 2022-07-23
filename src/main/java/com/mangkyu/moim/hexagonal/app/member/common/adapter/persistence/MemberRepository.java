@@ -1,4 +1,4 @@
-package com.mangkyu.moim.hexagonal.app.member.adapter.persistence;
+package com.mangkyu.moim.hexagonal.app.member.common.adapter.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

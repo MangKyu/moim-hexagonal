@@ -1,8 +1,9 @@
-package com.mangkyu.moim.hexagonal.app.member;
+package com.mangkyu.moim.hexagonal.app.member.common;
 
 import com.mangkyu.moim.hexagonal.acceptance.AcceptanceTest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -10,9 +11,10 @@ import org.springframework.http.HttpStatus;
 
 import static com.mangkyu.moim.hexagonal.app.login.LoginRestAssuredTestSource.구성원조회;
 import static com.mangkyu.moim.hexagonal.app.login.LoginRestAssuredTestSource.로그인토큰;
-import static com.mangkyu.moim.hexagonal.app.member.MemberRestAssuredTestSource.구성원추가;
+import static com.mangkyu.moim.hexagonal.app.member.common.MemberRestAssuredTestSource.구성원추가;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled
 @AcceptanceTest
 class MemberAcceptanceTest {
 

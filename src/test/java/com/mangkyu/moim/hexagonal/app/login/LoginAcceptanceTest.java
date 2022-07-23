@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.http.HttpStatus;
 
 import static com.mangkyu.moim.hexagonal.app.login.LoginRestAssuredTestSource.로그인;
-import static com.mangkyu.moim.hexagonal.app.member.MemberRestAssuredTestSource.구성원추가;
+import static com.mangkyu.moim.hexagonal.app.member.common.MemberRestAssuredTestSource.구성원추가;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @AcceptanceTest

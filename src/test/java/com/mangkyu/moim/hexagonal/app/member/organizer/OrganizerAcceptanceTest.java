@@ -1,4 +1,4 @@
-package com.mangkyu.moim.hexagonal.app;
+package com.mangkyu.moim.hexagonal.app.member.organizer;
 
 import com.mangkyu.moim.hexagonal.acceptance.AcceptanceTest;
 import io.restassured.RestAssured;

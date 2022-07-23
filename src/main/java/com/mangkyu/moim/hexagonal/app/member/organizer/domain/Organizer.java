@@ -1,6 +1,6 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.domain;
 
-import com.mangkyu.moim.hexagonal.app.member.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

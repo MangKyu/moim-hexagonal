@@ -1,6 +1,6 @@
-package com.mangkyu.moim.hexagonal.app.member.adapter.persistence;
+package com.mangkyu.moim.hexagonal.app.member.common.adapter.persistence;
 
-import com.mangkyu.moim.hexagonal.app.member.domain.Gender;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

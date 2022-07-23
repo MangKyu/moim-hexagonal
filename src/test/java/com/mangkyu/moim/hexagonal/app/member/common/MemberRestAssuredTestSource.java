@@ -1,4 +1,4 @@
-package com.mangkyu.moim.hexagonal.app.member;
+package com.mangkyu.moim.hexagonal.app.member.common;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;

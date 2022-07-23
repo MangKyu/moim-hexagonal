@@ -1,6 +1,6 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web;
 
-import com.mangkyu.moim.hexagonal.app.member.domain.Gender;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

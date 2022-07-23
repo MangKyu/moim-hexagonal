@@ -4,7 +4,7 @@ import com.mangkyu.moim.hexagonal.app.login.application.LoginService;
 import com.mangkyu.moim.hexagonal.app.login.domain.Login;
 import com.mangkyu.moim.hexagonal.app.login.errors.LoginErrorCode;
 import com.mangkyu.moim.hexagonal.app.login.errors.LoginException;
-import com.mangkyu.moim.hexagonal.app.member.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.domain.port.out.LoadMemberPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static com.mangkyu.moim.hexagonal.app.login.LoginTestSource.login;
-import static com.mangkyu.moim.hexagonal.app.member.MemberTestSource.member;
+import static com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource.member;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -38,7 +38,7 @@ class LoginUseCaseTest {
 
         doReturn(null)
                 .when(loadMemberPort)
-                .findByEmail(login.getEmail());
+                .findByLoginId(login.getEmail());
 
         final LoginException result = assertThrows(
                 LoginException.class,
@@ -57,7 +57,7 @@ class LoginUseCaseTest {
 
         doReturn(member)
                 .when(loadMemberPort)
-                .findByEmail(login.getEmail());
+                .findByLoginId(login.getEmail());
 
         final LoginException result = assertThrows(
                 LoginException.class,
@@ -73,7 +73,7 @@ class LoginUseCaseTest {
 
         doReturn(member)
                 .when(loadMemberPort)
-                .findByEmail(login.getEmail());
+                .findByLoginId(login.getEmail());
 
         doReturn("token")
                 .when(generateLoginTokenUseCase)

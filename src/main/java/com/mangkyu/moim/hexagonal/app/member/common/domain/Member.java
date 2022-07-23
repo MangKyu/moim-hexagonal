@@ -1,4 +1,4 @@
-package com.mangkyu.moim.hexagonal.app.member.domain;
+package com.mangkyu.moim.hexagonal.app.member.common.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

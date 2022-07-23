@@ -31,5 +31,14 @@ public interface OrganizerConverter {
     })
     Organizer toOrganizer(final AddOrganizerRequest request);
 
+    @Mappings({
+            @Mapping(source = "organizer.member.name", target = "name"),
+            @Mapping(source = "organizer.member.birth", target = "birth"),
+            @Mapping(source = "organizer.member.gender", target = "gender"),
+            @Mapping(source = "organizer.member.email", target = "email"),
+            @Mapping(source = "organizer.member.loginId", target = "loginId"),
+            @Mapping(source = "organizer.member.password", target = "password"),
+            @Mapping(source = "organizer.belongs", target = "belongs")
+    })
     AddOrganizerResponse toAddOrganizerResponse(Organizer organizer);
 }

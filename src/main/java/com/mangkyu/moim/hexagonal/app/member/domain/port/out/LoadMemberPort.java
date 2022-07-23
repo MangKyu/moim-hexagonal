@@ -1,9 +1,9 @@
 package com.mangkyu.moim.hexagonal.app.member.domain.port.out;
 
-import com.mangkyu.moim.hexagonal.app.member.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 
 public interface LoadMemberPort {
 
-    Member findByEmail(String email);
+    Member findByLoginId(String email);
 
 }

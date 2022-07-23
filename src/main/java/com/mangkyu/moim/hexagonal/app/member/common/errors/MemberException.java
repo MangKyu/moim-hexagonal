@@ -1,4 +1,4 @@
-package com.mangkyu.moim.hexagonal.app.member.errors;
+package com.mangkyu.moim.hexagonal.app.member.common.errors;
 
 import com.mangkyu.moim.hexagonal.app.errors.CommonException;
 import lombok.Getter;
