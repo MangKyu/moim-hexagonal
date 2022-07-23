@@ -55,7 +55,7 @@ class JwtAuthenticationFilterTest {
         verify(filterChain, never()).doFilter(servletRequest, servletResponse);
     }
 
-    @CsvSource({"/api/members, POST", "/api/login, POST"})
+    @CsvSource({"/api/members/organizers, POST", "/api/login, POST"})
     @ParameterizedTest
     void 인증필터제외되는패턴(final String url, final HttpMethod httpMethod) throws ServletException, IOException {
         ((MockHttpServletRequest)servletRequest).setMethod(httpMethod.name());

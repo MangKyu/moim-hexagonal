@@ -43,7 +43,7 @@ class OrganizerAcceptanceTest {
         return RestAssured.given().log().all()
                 .body(addOrganizerParam(loginId, password))
                 .contentType(ContentType.JSON)
-                .when().post("/api/members/organizer")
+                .when().post("/api/members/organizers")
                 .then().log().all()
                 .extract();
     }
