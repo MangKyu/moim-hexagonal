@@ -1,9 +1,13 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer;
 
 import com.mangkyu.moim.hexagonal.app.member.MemberTestSource;
+import com.mangkyu.moim.hexagonal.app.member.domain.Gender;
 import com.mangkyu.moim.hexagonal.app.member.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerEntity;
+import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRequest;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
+
+import java.time.LocalDate;
 
 public class OrganizerTestSource {
 
@@ -31,4 +35,27 @@ public class OrganizerTestSource {
                 .build();
     }
 
+    public static AddOrganizerRequest addOrganizerRequest() {
+        return AddOrganizerRequest.builder()
+                .name("mangkyu")
+                .birth(LocalDate.of(1994, 12, 26))
+                .gender(Gender.MALE)
+                .loginId("mangkyu")
+                .email("mangkyu@naver.com")
+                .password("dkssudgktpdy123!@#")
+                .belongs("belongs")
+                .build();
+    }
+
+    public static AddOrganizerRequest addOrganizerRequest(final String email, final String password) {
+        return AddOrganizerRequest.builder()
+                .name("mangkyu")
+                .birth(LocalDate.now())
+                .gender(Gender.MALE)
+                .loginId("mangkyu")
+                .email(email)
+                .password(password)
+                .belongs("belongs")
+                .build();
+    }
 }

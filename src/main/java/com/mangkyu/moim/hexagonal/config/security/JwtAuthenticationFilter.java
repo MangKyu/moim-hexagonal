@@ -22,7 +22,7 @@ class JwtAuthenticationFilter implements Filter {
     private final ParseLoginTokenUseCase parseLoginTokenUseCase;
 
     private static final Map<String, HttpMethod> patternMap = Map.of(
-            "/api/members", HttpMethod.POST,
+            "/api/members/organizers", HttpMethod.POST,
             "/api/login", HttpMethod.POST
     );
 

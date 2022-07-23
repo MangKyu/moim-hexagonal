@@ -1,5 +1,7 @@
-package com.mangkyu.moim.hexagonal.app.member.adapter.web;
+package com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mangkyu.moim.hexagonal.app.member.domain.Gender;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,21 +9,39 @@ import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 
 @Getter
 @Builder
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-public class AddMemberRequest {
+public class AddOrganizerRequest {
+
+    @NotBlank
+    private final String name;
+
+    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private final LocalDate birth;
+
+    @NotNull
+    private final Gender gender;
 
     @Email
     @NotBlank
     private final String email;
 
+    @NotBlank
+    private final String loginId;
+
     // 최소 8자, 하나 이상의 (문자, 숫자, 특수 문자)
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")
     @NotBlank
     private final String password;
+
+    @NotBlank
+    private final String belongs;
 
 }

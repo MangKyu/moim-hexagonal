@@ -2,12 +2,13 @@ package com.mangkyu.moim.hexagonal.app.member.organizer.converter;
 
 import com.mangkyu.moim.hexagonal.app.member.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerEntity;
+import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRequest;
+import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerResponse;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import org.junit.jupiter.api.Test;
 
 import static com.mangkyu.moim.hexagonal.app.member.MemberTestSource.member;
-import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.organizer;
-import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.organizerEntity;
+import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class OrganizerConverterTest {
@@ -35,6 +36,37 @@ class OrganizerConverterTest {
         assertThat(result.getMember().getEmail()).isEqualTo(organizerEntity.getEmail());
         assertThat(result.getMember().getPassword()).isEqualTo(organizerEntity.getPassword());
         assertThat(result.getBelongs()).isEqualTo(organizerEntity.getBelongs());
+    }
+
+    @Test
+    void addOrganizerRequest에서organizer로변환() {
+        final AddOrganizerRequest request = addOrganizerRequest();
+
+        final Organizer result = OrganizerConverter.INSTANCE.toOrganizer(request);
+
+        assertThat(result.getName()).isEqualTo(request.getName());
+        assertThat(result.getBirth()).isEqualTo(request.getBirth());
+        assertThat(result.getGender()).isEqualTo(request.getGender());
+        assertThat(result.getEmail()).isEqualTo(request.getEmail());
+        assertThat(result.getLoginId()).isEqualTo(request.getLoginId());
+        assertThat(result.getPassword()).isEqualTo(request.getPassword());
+        assertThat(result.getBelongs()).isEqualTo(request.getBelongs());
+    }
+
+    @Test
+    void organizer에서로addOrganizerResponse변환() {
+        final Organizer organizer = organizer();
+
+        final AddOrganizerResponse result = OrganizerConverter.INSTANCE.toAddOrganizerResponse(organizer);
+
+        assertThat(result.getId()).isEqualTo(organizer.getId());
+        assertThat(result.getName()).isEqualTo(organizer.getName());
+        assertThat(result.getBirth()).isEqualTo(organizer.getBirth());
+        assertThat(result.getGender()).isEqualTo(organizer.getGender());
+        assertThat(result.getEmail()).isEqualTo(organizer.getEmail());
+        assertThat(result.getLoginId()).isEqualTo(organizer.getLoginId());
+        assertThat(result.getPassword()).isEqualTo(organizer.getPassword());
+        assertThat(result.getBelongs()).isEqualTo(organizer.getBelongs());
     }
 
 }

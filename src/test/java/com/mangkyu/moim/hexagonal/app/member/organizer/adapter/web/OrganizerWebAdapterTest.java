@@ -1,9 +1,8 @@
-package com.mangkyu.moim.hexagonal.app.member.adapter.web;
+package com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web;
 
 import com.google.gson.Gson;
-import com.mangkyu.moim.hexagonal.app.member.adapter.web.AddMemberRequest;
-import com.mangkyu.moim.hexagonal.app.member.domain.Member;
-import com.mangkyu.moim.hexagonal.app.member.domain.port.in.MemberUseCase;
+import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
+import com.mangkyu.moim.hexagonal.app.member.organizer.domain.port.in.OrganizerUseCase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -14,33 +13,32 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.mangkyu.moim.hexagonal.app.member.MemberTestSource.addMemberRequest;
-import static com.mangkyu.moim.hexagonal.app.member.MemberTestSource.member;
+import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.addOrganizerRequest;
+import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.organizer;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
-class MemberWebAdapterTest {
+class OrganizerWebAdapterTest {
 
     @Autowired
     private MockMvc target;
     @Autowired
     private Gson gson;
     @Autowired
-    private MemberUseCase memberUseCase;
+    private OrganizerUseCase organizerUseCase;
 
     @CsvSource({
-            "mangkyu,,dkssudgktpdy123!@#", ",dkssudgktpdy123!@#",
+            "mangkyu,dkssudgktpdy123!@#", ",dkssudgktpdy123!@#",
             "mangkyu@naver.com,", "mangkyu@naver.com, gk13!@", "mangkyu@naver.com, 123123@#", "mangkyu@naver.com, dkssudgktpdy123", "mangkyu@naver.com, gkdsgasdg!@"
     })
-
     @ParameterizedTest
     void 사용자추가실패_잘못된파라미터(final String email, final String password) throws Exception {
-        final AddMemberRequest addMemberRequest = addMemberRequest(email, password);
+        final AddOrganizerRequest addOrganizerRequest = addOrganizerRequest(email, password);
 
-        final ResultActions result = target.perform(MockMvcRequestBuilders.post("/api/members")
-                .content(gson.toJson(addMemberRequest))
+        final ResultActions result = target.perform(MockMvcRequestBuilders.post("/api/members/organizers")
+                .content(replaceBirth(addOrganizerRequest))
                 .contentType(MediaType.APPLICATION_JSON));
 
         result.andExpect(status().isBadRequest());
@@ -48,18 +46,23 @@ class MemberWebAdapterTest {
 
     @Test
     void 사용자추가성공() throws Exception {
-        final AddMemberRequest addMemberRequest = addMemberRequest();
+        final AddOrganizerRequest addOrganizerRequest = addOrganizerRequest();
 
-        doReturn(member())
-                .when(memberUseCase)
-                .addMember(any(Member.class));
+        doReturn(organizer())
+                .when(organizerUseCase)
+                .addOrganizer(any(Organizer.class));
 
 
-        final ResultActions result = target.perform(MockMvcRequestBuilders.post("/api/members")
-                .content(gson.toJson(addMemberRequest))
+        final ResultActions result = target.perform(MockMvcRequestBuilders.post("/api/members/organizers")
+                .content(replaceBirth(addOrganizerRequest))
                 .contentType(MediaType.APPLICATION_JSON));
 
         result.andExpect(status().isCreated());
+    }
+
+    private String replaceBirth(final AddOrganizerRequest addOrganizerRequest) {
+        final String json = gson.toJson(addOrganizerRequest);
+        return json.replace("{\"year\":1994,\"month\":12,\"day\":26}", "19941226");
     }
 
 }

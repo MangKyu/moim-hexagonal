@@ -3,7 +3,6 @@ package com.mangkyu.moim.hexagonal.app.login.adapter.web;
 import com.google.gson.Gson;
 import com.mangkyu.moim.hexagonal.app.login.domain.Login;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.LoginUseCase;
-import com.mangkyu.moim.hexagonal.app.member.adapter.web.AddMemberRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -15,9 +14,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.mangkyu.moim.hexagonal.app.login.LoginTestSource.loginRequest;
-import static com.mangkyu.moim.hexagonal.app.member.MemberTestSource.addMemberRequest;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

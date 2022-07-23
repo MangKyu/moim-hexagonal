@@ -1,4 +1,4 @@
-package com.mangkyu.moim.hexagonal.app.member.adapter.web;
+package com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web;
 
 import lombok.Builder;
 import lombok.Getter;

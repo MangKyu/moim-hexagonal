@@ -1,7 +1,6 @@
 package com.mangkyu.moim.hexagonal.app.member;
 
 import com.mangkyu.moim.hexagonal.app.member.adapter.persistence.MemberEntity;
-import com.mangkyu.moim.hexagonal.app.member.adapter.web.AddMemberRequest;
 import com.mangkyu.moim.hexagonal.app.member.converter.MemberConverter;
 import com.mangkyu.moim.hexagonal.app.member.domain.Gender;
 import com.mangkyu.moim.hexagonal.app.member.domain.Member;
@@ -11,18 +10,12 @@ import java.time.LocalDate;
 
 public class MemberTestSource {
 
-    public static AddMemberRequest addMemberRequest() {
-        return AddMemberRequest.builder()
-                .email("mangkyu@naver.com")
-                .password("dkssudgktpdy123!@#")
-                .build();
-    }
 
     public static Member member() {
         return Member.builder()
                 .id(1L)
                 .name("mangkyu")
-                .birth(LocalDate.now())
+                .birth(LocalDate.of(1994, 12, 26))
                 .gender(Gender.MALE)
                 .email("mangkyu@naver.com")
                 .loginId("mangkyu")
@@ -34,11 +27,5 @@ public class MemberTestSource {
         return MemberConverter.INSTANCE.toMemberEntity(member());
     }
 
-    public static AddMemberRequest addMemberRequest(final String email, final String password) {
-        return AddMemberRequest.builder()
-                .email(email)
-                .password(password)
-                .build();
-    }
 
 }
