@@ -1,4 +1,4 @@
-package com.mangkyu.moim.hexagonal.app.member.organizer.adapter;
+package com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence;
 
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerEntity;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerRepository;
