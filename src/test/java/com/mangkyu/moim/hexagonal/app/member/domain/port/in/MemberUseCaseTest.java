@@ -8,6 +8,8 @@ import com.mangkyu.moim.hexagonal.app.member.errors.MemberErrorCode;
 import com.mangkyu.moim.hexagonal.app.member.errors.MemberException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static com.mangkyu.moim.hexagonal.app.member.MemberTestSource.member;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,12 +22,14 @@ class MemberUseCaseTest {
     private MemberUseCase target;
     private SaveMemberPort saveMemberPort;
     private LoadMemberPort loadMemberPort;
+    private PasswordEncoder passwordEncoder;
 
     @BeforeEach
     void setUp() {
         saveMemberPort = mock(SaveMemberPort.class);
         loadMemberPort = mock(LoadMemberPort.class);
-        target = new MemberService(saveMemberPort, loadMemberPort);
+        passwordEncoder = spy(BCryptPasswordEncoder.class);
+        target = new MemberService(saveMemberPort, loadMemberPort, passwordEncoder);
     }
 
     @Test
@@ -54,6 +58,7 @@ class MemberUseCaseTest {
         target.addMember(member);
 
         verify(saveMemberPort, times(1)).save(any(Member.class));
+        verify(passwordEncoder, times(1)).encode(any(CharSequence.class));
     }
 
 }
