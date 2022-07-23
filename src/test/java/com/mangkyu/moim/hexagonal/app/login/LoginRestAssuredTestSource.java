@@ -33,7 +33,7 @@ public class LoginRestAssuredTestSource {
                 .when().post("/api/login")
                 .then().log().all()
                 .extract()
-                .path("token");
+                .path("accessToken");
     }
 
     private static Map<String, Object> loginParams(final String loginId, final String password) {

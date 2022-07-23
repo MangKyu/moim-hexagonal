@@ -20,7 +20,7 @@ class LoginWebAdapter {
     @PostMapping("/api/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody @Valid final LoginRequest loginRequest) {
         final String token = loginUseCase.login(LoginConverter.INSTANCE.toLogin(loginRequest));
-        return ResponseEntity.ok(Map.of("token", token));
+        return ResponseEntity.ok(Map.of("accessToken", token));
     }
 
 }

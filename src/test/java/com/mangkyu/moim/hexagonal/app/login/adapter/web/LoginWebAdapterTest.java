@@ -45,7 +45,7 @@ class LoginWebAdapterTest {
 
     @Test
     void 로그인성공() throws Exception {
-        doReturn("token")
+        doReturn("accessToken")
                 .when(loginUseCase)
                 .login(any(Login.class));
 

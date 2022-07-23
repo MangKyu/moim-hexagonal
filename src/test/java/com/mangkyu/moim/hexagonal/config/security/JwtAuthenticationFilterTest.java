@@ -34,7 +34,7 @@ class JwtAuthenticationFilterTest {
         parseLoginTokenUseCase = mock(ParseLoginTokenUseCase.class);
         target = new JwtAuthenticationFilter(parseLoginTokenUseCase);
 
-        headerToken = "Bearer " + "token";
+        headerToken = "Bearer " + "accessToken";
         servletRequest = new MockHttpServletRequest();
         servletResponse = new MockHttpServletResponse();
         filterChain = mock(FilterChain.class);

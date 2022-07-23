@@ -20,7 +20,7 @@ class ParseLoginTokenUseCaseTest {
         target = new LoginTokenService();
     }
 
-    @ValueSource(strings = {"", "token"})
+    @ValueSource(strings = {"", "accessToken"})
     @ParameterizedTest
     void 토큰파싱_잘못된토큰(final String token) {
         final CommonException result = assertThrows(

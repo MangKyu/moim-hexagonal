@@ -38,12 +38,12 @@ class LoginAcceptanceTest {
 
     private void 로그인실패(final ExtractableResponse<Response> 로그인결과) {
         assertThat(로그인결과.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-        assertThat(로그인결과.body().jsonPath().getString("token")).isNull();
+        assertThat(로그인결과.body().jsonPath().getString("accessToken")).isNull();
     }
 
     private void 로그인성공(final ExtractableResponse<Response> 로그인결과) {
         assertThat(로그인결과.statusCode()).isEqualTo(HttpStatus.OK.value());
-        assertThat(로그인결과.body().jsonPath().getString("token")).isNotNull();
+        assertThat(로그인결과.body().jsonPath().getString("accessToken")).isNotNull();
     }
 
 }

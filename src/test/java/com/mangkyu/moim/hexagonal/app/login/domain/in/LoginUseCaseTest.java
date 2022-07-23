@@ -75,7 +75,7 @@ class LoginUseCaseTest {
                 .when(loadMemberPort)
                 .findByLoginId(login.getLoginId());
 
-        doReturn("token")
+        doReturn("accessToken")
                 .when(generateLoginTokenUseCase)
                 .generate(login.getLoginId());
 
