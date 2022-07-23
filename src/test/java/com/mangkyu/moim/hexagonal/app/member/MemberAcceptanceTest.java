@@ -31,11 +31,9 @@ class MemberAcceptanceTest {
 
     @Test
     void 구성원가입성공() {
-        final Long 구성원 = 구성원추가("mangkyu@naver.com", "dkssudgktpdy123!@#").jsonPath().getLong("id");
+        final ExtractableResponse<Response> 구성원추가결과 = 구성원추가("mangkyu@naver.com", "dkssudgktpdy123!@#");
 
-        final List<Long> 구성원목록조회 = 구성원목록조회();
-
-        assertThat(구성원목록조회).containsExactly(구성원);
+        구성원추가성공(구성원추가결과);
     }
 
     @CsvSource({"mangkyu,adsfaf", ",dkssudgktpdy123!@#", "mangkyu@naver.com,"})
@@ -46,6 +44,10 @@ class MemberAcceptanceTest {
         final List<Long> 구성원목록조회 = 구성원목록조회();
 
         assertThat(구성원목록조회).doesNotContain(구성원);
+    }
+
+    private void 구성원추가성공(final ExtractableResponse<Response> 구성원추가결과) {
+        assertThat(구성원추가결과.statusCode()).isEqualTo(HttpStatus.CREATED.value());
     }
 
     private void 잘못된요청(final ExtractableResponse<Response> 중복사용자추가) {
