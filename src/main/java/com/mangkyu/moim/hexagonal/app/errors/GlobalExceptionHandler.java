@@ -55,7 +55,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.status(status)
                 .headers(headers)
-                .body(ErrorResponse.of(status.name(), status.getReasonPhrase()));
+                .body(ErrorResponse.of(status.name(), ex.getMessage()));
     }
 
 }

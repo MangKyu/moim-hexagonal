@@ -23,7 +23,7 @@ public class AddOrganizerRequest {
     private final String name;
 
     @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyyMMdd")
     private final LocalDate birth;
 
     @NotNull

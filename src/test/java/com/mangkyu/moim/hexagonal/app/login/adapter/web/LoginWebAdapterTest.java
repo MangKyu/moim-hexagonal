@@ -36,7 +36,7 @@ class LoginWebAdapterTest {
     void 로그인실패_잘못된아이디패스워드(final String email, final String password) throws Exception {
         final LoginRequest loginRequest = loginRequest(email, password);
 
-        final ResultActions result = target.perform(MockMvcRequestBuilders.post("/api/members")
+        final ResultActions result = target.perform(MockMvcRequestBuilders.post("/api/login")
                 .content(gson.toJson(loginRequest))
                 .contentType(MediaType.APPLICATION_JSON));
 
