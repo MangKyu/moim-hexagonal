@@ -15,7 +15,7 @@ class LoginConverterTest {
 
         final Login login = LoginConverter.INSTANCE.toLogin(request);
 
-        assertThat(login.getEmail()).isEqualTo(request.getEmail());
+        assertThat(login.getLoginId()).isEqualTo(request.getLoginId());
         assertThat(login.getPassword()).isEqualTo(request.getPassword());
     }
 

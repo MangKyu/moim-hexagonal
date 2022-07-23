@@ -15,8 +15,8 @@ public class LoadMemberPersistenceAdapter implements LoadMemberPort {
     private final MemberRepository memberRepository;
 
     @Override
-    public Member findByLoginId(final String email) {
-        final MemberEntity memberEntity = memberRepository.findByEmail(email);
+    public Member findByLoginId(final String loginId) {
+        final MemberEntity memberEntity = memberRepository.findByLoginId(loginId);
         if (memberEntity == null) {
             return null;
         }

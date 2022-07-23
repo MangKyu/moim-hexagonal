@@ -23,7 +23,7 @@ public class LoginService implements LoginUseCase {
 
     @Override
     public String login(final Login login) {
-        final Member member = loadMemberPort.findByLoginId(login.getEmail());
+        final Member member = loadMemberPort.findByLoginId(login.getLoginId());
         if (member == null) {
             throw new LoginException(LogLevel.INFO, LoginErrorCode.INVALID_EMAIL_OR_PASSWORD);
         }
@@ -32,6 +32,6 @@ public class LoginService implements LoginUseCase {
             throw new LoginException(LogLevel.INFO, LoginErrorCode.INVALID_EMAIL_OR_PASSWORD);
         }
 
-        return generateLoginTokenUseCase.generate(login.getEmail());
+        return generateLoginTokenUseCase.generate(login.getLoginId());
     }
 }

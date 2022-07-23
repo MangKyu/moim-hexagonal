@@ -38,7 +38,7 @@ class LoginUseCaseTest {
 
         doReturn(null)
                 .when(loadMemberPort)
-                .findByLoginId(login.getEmail());
+                .findByLoginId(login.getLoginId());
 
         final LoginException result = assertThrows(
                 LoginException.class,
@@ -51,13 +51,13 @@ class LoginUseCaseTest {
     void 로그인실패_잘못된비밀번호() {
         final Member member = member();
         final Login login = Login.builder()
-                .email(member.getEmail())
+                .loginId(member.getEmail())
                 .password("invalid password")
                 .build();
 
         doReturn(member)
                 .when(loadMemberPort)
-                .findByLoginId(login.getEmail());
+                .findByLoginId(login.getLoginId());
 
         final LoginException result = assertThrows(
                 LoginException.class,
@@ -73,11 +73,11 @@ class LoginUseCaseTest {
 
         doReturn(member)
                 .when(loadMemberPort)
-                .findByLoginId(login.getEmail());
+                .findByLoginId(login.getLoginId());
 
         doReturn("token")
                 .when(generateLoginTokenUseCase)
-                .generate(login.getEmail());
+                .generate(login.getLoginId());
 
         final String result = target.login(login);
         assertThat(result).isNotNull();

@@ -5,36 +5,33 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.http.HttpStatus;
 
 import static com.mangkyu.moim.hexagonal.app.login.LoginRestAssuredTestSource.로그인;
-import static com.mangkyu.moim.hexagonal.app.member.common.MemberRestAssuredTestSource.구성원추가;
+import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerRestAssuredTestSource.주최자추가;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @AcceptanceTest
 class LoginAcceptanceTest {
 
-    private String email = "mangkyu@naver.com";
+    private String loginId = "mangkyu1226";
     private String password = "dkssudgktpdy123!@#";
 
     @BeforeEach
     void setUp() {
-        구성원추가(email, password);
+        주최자추가(loginId, password);
     }
 
-    @CsvSource({"mangkyu@test.com, dkssudgktpdy123!@#", "mangkyu@naver.com,dkssudgktpdy123!@#!@#"})
-    @ParameterizedTest
-    void 로그인실패_잘못된로그인정보(final String email, final String password) {
-        final ExtractableResponse<Response> 로그인결과 = 로그인(email, password);
+    @Test
+    void 로그인실패_잘못된아이디비밀번호() {
+        final ExtractableResponse<Response> 로그인결과 = 로그인("loginId", password);
 
         로그인실패(로그인결과);
     }
 
     @Test
     void 로그인성공() {
-        final ExtractableResponse<Response> 로그인결과 = 로그인(email, password);
+        final ExtractableResponse<Response> 로그인결과 = 로그인(loginId, password);
 
         로그인성공(로그인결과);
     }

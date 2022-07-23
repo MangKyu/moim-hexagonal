@@ -17,9 +17,9 @@ public class LoginRestAssuredTestSource {
                 .extract();
     }
 
-    public static ExtractableResponse<Response> 로그인(final String email, final String password) {
+    public static ExtractableResponse<Response> 로그인(final String loginId, final String password) {
         return RestAssured.given().log().all()
-                .body(loginParams(email, password))
+                .body(loginParams(loginId, password))
                 .contentType(ContentType.JSON)
                 .when().post("/api/login")
                 .then().log().all()
@@ -36,8 +36,8 @@ public class LoginRestAssuredTestSource {
                 .path("token");
     }
 
-    private static Map<String, Object> loginParams(final String email, final String password) {
-        return Map.of("email", email, "password", password);
+    private static Map<String, Object> loginParams(final String loginId, final String password) {
+        return Map.of("loginId", loginId, "password", password);
     }
 
 }

@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @AllArgsConstructor
 public class Login {
 
-    private String email;
+    private String loginId;
     private String password;
 
     public boolean passwordMatches(final PasswordEncoder passwordEncoder, final String password) {

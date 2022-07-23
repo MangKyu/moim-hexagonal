@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -15,9 +14,8 @@ import javax.validation.constraints.Pattern;
 @RequiredArgsConstructor
 public class LoginRequest {
 
-    @Email
     @NotBlank
-    private final String email;
+    private final String loginId;
 
     // 최소 8자, 하나 이상의 (문자, 숫자, 특수 문자)
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")

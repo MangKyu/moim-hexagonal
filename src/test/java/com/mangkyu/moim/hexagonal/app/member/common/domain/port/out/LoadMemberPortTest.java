@@ -30,7 +30,7 @@ class LoadMemberPortTest {
     void 사용자조회_존재함() {
         final MemberEntity savedMemberEntity = memberRepository.save(memberEntity());
 
-        final Member result = target.findByLoginId(savedMemberEntity.getEmail());
+        final Member result = target.findByLoginId(savedMemberEntity.getLoginId());
 
         assertThat(result).isNotNull();
 
@@ -38,7 +38,7 @@ class LoadMemberPortTest {
 
     @Test
     void 사용자조회_존재하지않음() {
-        final Member result = target.findByLoginId("notexists@email.com");
+        final Member result = target.findByLoginId("notexists");
 
         assertThat(result).isNull();
     }

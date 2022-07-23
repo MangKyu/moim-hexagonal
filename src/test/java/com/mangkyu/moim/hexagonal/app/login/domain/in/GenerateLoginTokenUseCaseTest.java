@@ -21,7 +21,7 @@ class GenerateLoginTokenUseCaseTest {
     void 토큰발급() {
         final Login login = login();
 
-        final String result = target.generate(login.getEmail());
+        final String result = target.generate(login.getLoginId());
 
         assertThat(result).isNotNull();
     }
