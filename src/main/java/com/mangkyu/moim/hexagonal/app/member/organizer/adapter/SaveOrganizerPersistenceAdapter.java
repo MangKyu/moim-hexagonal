@@ -1,6 +1,6 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.adapter;
 
-import com.mangkyu.moim.hexagonal.app.member.adapter.persistence.MemberEntity;
+import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerEntity;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerRepository;
 import com.mangkyu.moim.hexagonal.app.member.organizer.converter.OrganizerConverter;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
@@ -17,7 +17,8 @@ public class SaveOrganizerPersistenceAdapter implements SaveOrganizerPort {
     private final OrganizerRepository organizerRepository;
 
     @Override
-    public void save(final Organizer organizer, final MemberEntity memberEntity) {
-        organizerRepository.save(OrganizerConverter.INSTANCE.toOrganizerEntity(organizer, memberEntity));
+    public Organizer save(final Organizer organizer) {
+        final OrganizerEntity savedEntity = organizerRepository.save(OrganizerConverter.INSTANCE.toOrganizerEntity(organizer));
+        return OrganizerConverter.INSTANCE.toOrganizer(savedEntity);
     }
 }

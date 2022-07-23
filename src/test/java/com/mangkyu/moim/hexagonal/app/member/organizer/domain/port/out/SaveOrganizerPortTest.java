@@ -2,6 +2,7 @@ package com.mangkyu.moim.hexagonal.app.member.organizer.domain.port.out;
 
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.SaveOrganizerPersistenceAdapter;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerRepository;
+import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,9 @@ class SaveOrganizerPortTest {
 
     @Test
     void 주최자저장() {
-        target.save(organizer(), memberEntity());
+        final Organizer result = target.save(organizer());
 
+        assertThat(result).isNotNull();
         assertThat(organizerRepository.findAll()).isNotEmpty();
     }
 }
