@@ -1,6 +1,7 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web;
 
 import com.google.gson.Gson;
+import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.port.in.OrganizerUseCase;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.addOrganizerRequest;
-import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.organizer;
+import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,6 +28,28 @@ class OrganizerWebAdapterTest {
     private Gson gson;
     @Autowired
     private OrganizerUseCase organizerUseCase;
+    @Autowired
+    private ParseLoginTokenUseCase tokenUseCase;
+
+    @Test
+    void 사용자정보수정성공() throws Exception {
+        final ModifyOrganizerRequest request = modifyOrganizerRequest();
+        doReturn("token")
+                .when(tokenUseCase)
+                .parseEmail(any());
+
+        doReturn(organizer())
+                .when(organizerUseCase)
+                .addOrganizer(any(Organizer.class));
+
+        final ResultActions result = target.perform(
+                MockMvcRequestBuilders.patch("/api/members/organizers/{id}", 1L)
+                        .header("Authorization", "Bearer " + "token")
+                        .content(gson.toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isOk());
+    }
 
     @CsvSource({
             "mangkyu,dkssudgktpdy123!@#", ",dkssudgktpdy123!@#",

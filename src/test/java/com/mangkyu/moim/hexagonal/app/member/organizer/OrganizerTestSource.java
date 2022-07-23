@@ -5,6 +5,7 @@ import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerEntity;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRequest;
+import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.ModifyOrganizerRequest;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 
 import java.time.LocalDate;
@@ -32,6 +33,13 @@ public class OrganizerTestSource {
                 .id(1L)
                 .belongs("주최자")
                 .member(MemberTestSource.memberEntity())
+                .build();
+    }
+
+    public static ModifyOrganizerRequest modifyOrganizerRequest() {
+        return ModifyOrganizerRequest.builder()
+                .email("mangkyu@naver.com")
+                .belongs("newBelongs")
                 .build();
     }
 

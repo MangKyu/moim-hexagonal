@@ -4,6 +4,7 @@ import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerEntity;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRequest;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerResponse;
+import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.ModifyOrganizerRequest;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import org.junit.jupiter.api.Test;
 
@@ -50,6 +51,19 @@ class OrganizerConverterTest {
         assertThat(result.getEmail()).isEqualTo(request.getEmail());
         assertThat(result.getLoginId()).isEqualTo(request.getLoginId());
         assertThat(result.getPassword()).isEqualTo(request.getPassword());
+        assertThat(result.getBelongs()).isEqualTo(request.getBelongs());
+    }
+
+    @Test
+    void modifyOrganizerRequest에서organizer로변환() {
+        final ModifyOrganizerRequest request = modifyOrganizerRequest();
+
+        final Organizer result = OrganizerConverter.INSTANCE.toOrganizer(request);
+
+        assertThat(result.getName()).isEqualTo(request.getName());
+        assertThat(result.getBirth()).isEqualTo(request.getBirth());
+        assertThat(result.getGender()).isEqualTo(request.getGender());
+        assertThat(result.getEmail()).isEqualTo(request.getEmail());
         assertThat(result.getBelongs()).isEqualTo(request.getBelongs());
     }
 
