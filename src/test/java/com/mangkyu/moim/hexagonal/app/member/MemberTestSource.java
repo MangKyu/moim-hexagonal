@@ -19,6 +19,7 @@ public class MemberTestSource {
         return Member.builder()
                 .id(1L)
                 .email("mangkyu@naver.com")
+                .loginId("mangkyu")
                 .password(new BCryptPasswordEncoder().encode("dkssudgktpdy123!@#"))
                 .build();
     }

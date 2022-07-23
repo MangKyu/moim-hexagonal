@@ -12,6 +12,7 @@ public class Member {
 
     private Long id;
     private String email;
+    private String loginId;
     private String password;
 
     public void encryptPassword(final PasswordEncoder passwordEncoder) {
