@@ -24,6 +24,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     implementation 'org.springframework.security:spring-security-crypto'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
 
     implementation 'com.google.code.gson:gson'
     runtimeOnly 'com.h2database:h2'

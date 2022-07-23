@@ -25,4 +25,13 @@ class LoginTest {
         assertThat(result).isFalse();
     }
 
+    @Test
+    void token발급() {
+        final Login login = login();
+
+        final String result = login.generateToken();
+
+        assertThat(result).isNotNull();
+    }
+
 }

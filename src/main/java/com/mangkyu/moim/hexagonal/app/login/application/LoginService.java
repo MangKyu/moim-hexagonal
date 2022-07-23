@@ -30,7 +30,6 @@ public class LoginService implements LoginUseCase {
             throw new LoginException(LogLevel.INFO, LoginErrorCode.INVALID_EMAIL_OR_PASSWORD);
         }
 
-        // TODO(MinKyu): 로그인 성공 시에 실제 토큰 발급
-        return "login success";
+        return login.generateToken();
     }
 }
