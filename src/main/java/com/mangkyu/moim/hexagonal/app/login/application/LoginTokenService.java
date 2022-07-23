@@ -5,6 +5,7 @@ import com.mangkyu.moim.hexagonal.app.errors.CommonException;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.GenerateLoginTokenUseCase;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
@@ -42,8 +43,12 @@ public class LoginTokenService implements GenerateLoginTokenUseCase, ParseLoginT
     }
 
     private String getUserEmailFromToken(String token) {
-        Claims claims = getClaimsFormToken(token);
-        return (String) claims.get("email");
+        try {
+            Claims claims = getClaimsFormToken(token);
+            return (String) claims.get("email");
+        } catch (final JwtException exception) {
+            throw new CommonException(CommonErrorCode.UNAUTHORIZED, exception);
+        }
     }
 
     private Claims getClaimsFormToken(String token) {
