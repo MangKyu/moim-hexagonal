@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 @ToString
 public enum CommonErrorCode implements ErrorCode {
 
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "Request is unauthorized"),
     INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "Invalid parameter is included"),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
     ;

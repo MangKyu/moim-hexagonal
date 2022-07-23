@@ -1,6 +1,10 @@
 package com.mangkyu.moim.hexagonal.app.login.application;
 
+import com.mangkyu.moim.hexagonal.app.errors.CommonErrorCode;
+import com.mangkyu.moim.hexagonal.app.errors.CommonException;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.GenerateLoginTokenUseCase;
+import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
@@ -14,10 +18,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class LoginTokenService implements GenerateLoginTokenUseCase {
+public class LoginTokenService implements GenerateLoginTokenUseCase, ParseLoginTokenUseCase {
 
     private static final String secretKey = "ThisIsA_SecretKeyForMyApplication";
     private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+
+    @Override
+    public String parseEmail(final String token) {
+        if (token == null) {
+            throw new CommonException(CommonErrorCode.UNAUTHORIZED);
+        }
+        final String parsedToken = getTokenFromHeader(token);
+        return getUserEmailFromToken(parsedToken);
+    }
+
+    private String getTokenFromHeader(String header) {
+        final String[] parsedToken = header.split(" ");
+        if (parsedToken.length <= 1) {
+            throw new CommonException(CommonErrorCode.UNAUTHORIZED);
+        }
+
+        return parsedToken[1];
+    }
+
+    private String getUserEmailFromToken(String token) {
+        Claims claims = getClaimsFormToken(token);
+        return (String) claims.get("email");
+    }
+
+    private Claims getClaimsFormToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
+                .parseClaimsJws(token)
+                .getBody();
+    }
 
     @Override
     public String generate(final String email) {
