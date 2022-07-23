@@ -16,9 +16,11 @@ class OrganizerConverterTest {
         final MemberEntity memberEntity = memberEntity();
         final Organizer organizer = organizer();
 
-        final OrganizerEntity result = OrganizerConverter.INSTANCE.toOrganizerEntity(organizer, memberEntity);
+        final OrganizerEntity result = OrganizerConverter.INSTANCE.toOrganizerEntity(organizer);
 
-        assertThat(result.getMember()).isEqualTo(memberEntity);
+        assertThat(result.getMember().getId()).isEqualTo(memberEntity.getId());
+        assertThat(result.getMember().getEmail()).isEqualTo(memberEntity.getEmail());
+        assertThat(result.getMember().getPassword()).isEqualTo(memberEntity.getPassword());
         assertThat(result.getBelongs()).isEqualTo(organizer.getBelongs());
     }
 
