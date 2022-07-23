@@ -22,7 +22,7 @@ public class MemberService implements MemberUseCase {
     public Member addMember(final Member member) {
         final Member foundMember = loadMemberPort.findByEmail(member.getEmail());
         if (foundMember != null) {
-            throw new MemberException(LogLevel.INFO, MemberErrorCode.DUPLICATE_EMAIL);
+            throw new MemberException(LogLevel.INFO, MemberErrorCode.DUPLICATE_LOGINID);
         }
 
         member.encryptPassword(passwordEncoder);

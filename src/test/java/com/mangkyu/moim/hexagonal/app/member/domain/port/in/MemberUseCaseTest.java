@@ -43,7 +43,7 @@ class MemberUseCaseTest {
                 MemberException.class,
                 () -> target.addMember(member));
 
-        assertThat(result.getErrorCode()).isEqualTo(MemberErrorCode.DUPLICATE_EMAIL);
+        assertThat(result.getErrorCode()).isEqualTo(MemberErrorCode.DUPLICATE_LOGINID);
         verify(saveMemberPort, times(0)).save(any(Member.class));
     }
 
