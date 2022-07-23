@@ -1,6 +1,8 @@
 package com.mangkyu.moim.hexagonal.member;
 
+import com.mangkyu.moim.hexagonal.member.adapter.persistence.MemberEntity;
 import com.mangkyu.moim.hexagonal.member.adapter.web.AddMemberRequest;
+import com.mangkyu.moim.hexagonal.member.converter.MemberConverter;
 import com.mangkyu.moim.hexagonal.member.domain.Member;
 
 public class MemberTestSource {
@@ -18,6 +20,10 @@ public class MemberTestSource {
                 .email("mangkyu@naver.com")
                 .password("dkssudgktpdy123!@#")
                 .build();
+    }
+
+    public static MemberEntity memberEntity() {
+        return MemberConverter.INSTANCE.toMemberEntity(member());
     }
 
     public static AddMemberRequest addMemberRequest(final String email, final String password) {
