@@ -27,9 +27,9 @@ class LoginAcceptanceTest {
         구성원추가(email, password);
     }
 
-    @CsvSource({"mangkyu@test.com, dkssudgktpdy123!@#", "mangkyu@naver.com,dkssudgktpdy123!@#"})
+    @CsvSource({"mangkyu@test.com, dkssudgktpdy123!@#", "mangkyu@naver.com,dkssudgktpdy123!@#!@#"})
     @ParameterizedTest
-    void 로그인실패_존재하지않는이메일(final String email, final String password) {
+    void 로그인실패_잘못된로그인정보(final String email, final String password) {
         final ExtractableResponse<Response> 로그인결과 = 로그인(email, password);
 
         로그인실패(로그인결과);
@@ -44,7 +44,7 @@ class LoginAcceptanceTest {
 
     private void 로그인실패(final ExtractableResponse<Response> 로그인결과) {
         assertThat(로그인결과.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-        assertThat(로그인결과.body().jsonPath().getString("token")).isNotNull();
+        assertThat(로그인결과.body().jsonPath().getString("token")).isNull();
     }
 
     private void 로그인성공(final ExtractableResponse<Response> 로그인결과) {

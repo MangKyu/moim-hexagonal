@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -39,11 +40,8 @@ class MemberAcceptanceTest {
     @CsvSource({"mangkyu,adsfaf", ",dkssudgktpdy123!@#", "mangkyu@naver.com,"})
     @ParameterizedTest
     void 구성원가입실패_잘못된파라미터(final String 잘못된이메일, final String 잘못된비밀번호) {
-        final Long 구성원 = 구성원추가(잘못된이메일, 잘못된비밀번호).jsonPath().getLong("id");
-
-        final List<Long> 구성원목록조회 = 구성원목록조회();
-
-        assertThat(구성원목록조회).doesNotContain(구성원);
+        final ExtractableResponse<Response> 구성원추가결과 = 구성원추가(잘못된이메일, 잘못된비밀번호);
+        잘못된요청(구성원추가결과);
     }
 
     private void 구성원추가성공(final ExtractableResponse<Response> 구성원추가결과) {
@@ -53,17 +51,5 @@ class MemberAcceptanceTest {
     private void 잘못된요청(final ExtractableResponse<Response> 중복사용자추가) {
         assertThat(중복사용자추가.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
-
-    private List<Long> 구성원목록조회() {
-        ExtractableResponse<Response> response = RestAssured.given()
-                .accept(ContentType.JSON)
-                .get("/api/members")
-                .then()
-                .statusCode(200)
-                .extract();
-
-        return response.body().jsonPath().getList("members.id", Long.class);
-    }
-
 
 }
