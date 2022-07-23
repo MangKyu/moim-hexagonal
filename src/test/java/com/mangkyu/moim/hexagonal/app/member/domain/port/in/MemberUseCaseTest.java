@@ -2,9 +2,10 @@ package com.mangkyu.moim.hexagonal.app.member.domain.port.in;
 
 import com.mangkyu.moim.hexagonal.app.member.application.MemberService;
 import com.mangkyu.moim.hexagonal.app.member.domain.Member;
-import com.mangkyu.moim.hexagonal.app.member.domain.port.in.MemberUseCase;
 import com.mangkyu.moim.hexagonal.app.member.domain.port.out.LoadMemberPort;
 import com.mangkyu.moim.hexagonal.app.member.domain.port.out.SaveMemberPort;
+import com.mangkyu.moim.hexagonal.app.member.errors.MemberErrorCode;
+import com.mangkyu.moim.hexagonal.app.member.errors.MemberException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,11 +35,11 @@ class MemberUseCaseTest {
                 .when(loadMemberPort)
                         .findByEmail(member.getEmail());
 
-        final IllegalArgumentException result = assertThrows(
-                IllegalArgumentException.class,
+        final MemberException result = assertThrows(
+                MemberException.class,
                 () -> target.addMember(member));
 
-        assertThat(result).hasMessageContaining("중복되는 사용자 이메일입니다.");
+        assertThat(result.getErrorCode()).isEqualTo(MemberErrorCode.DUPLICATE_EMAIL);
         verify(saveMemberPort, times(0)).save(any(Member.class));
     }
 
