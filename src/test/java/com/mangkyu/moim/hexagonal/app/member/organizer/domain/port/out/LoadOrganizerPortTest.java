@@ -38,7 +38,7 @@ class LoadOrganizerPortTest {
     void 아이디로사용자조회_존재함() {
         final OrganizerEntity savedEntity = organizerRepository.save(organizerEntity());
 
-        final Optional<Organizer> result = target.findById(savedEntity.getId());
+        final Optional<Organizer> result = target.findById(savedEntity.getMember().getId());
 
         assertThat(result.isPresent()).isTrue();
     }

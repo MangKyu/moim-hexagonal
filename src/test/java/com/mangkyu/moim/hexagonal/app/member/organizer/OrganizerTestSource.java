@@ -36,6 +36,14 @@ public class OrganizerTestSource {
                 .build();
     }
 
+    public static OrganizerEntity organizerEntity(final Long id) {
+        return OrganizerEntity.builder()
+                .id(id)
+                .belongs("주최자")
+                .member(MemberTestSource.memberEntity())
+                .build();
+    }
+
     public static ModifyOrganizerRequest modifyOrganizerRequest() {
         return ModifyOrganizerRequest.builder()
                 .email("mangkyu@naver.com")
