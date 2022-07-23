@@ -5,7 +5,7 @@ import com.mangkyu.moim.hexagonal.app.login.domain.Login;
 import com.mangkyu.moim.hexagonal.app.login.errors.LoginErrorCode;
 import com.mangkyu.moim.hexagonal.app.login.errors.LoginException;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
-import com.mangkyu.moim.hexagonal.app.member.domain.port.out.LoadMemberPort;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.out.LoadMemberPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

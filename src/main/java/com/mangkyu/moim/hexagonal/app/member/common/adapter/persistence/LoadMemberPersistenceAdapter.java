@@ -2,7 +2,7 @@ package com.mangkyu.moim.hexagonal.app.member.common.adapter.persistence;
 
 import com.mangkyu.moim.hexagonal.app.member.common.converter.MemberConverter;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
-import com.mangkyu.moim.hexagonal.app.member.domain.port.out.LoadMemberPort;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.out.LoadMemberPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

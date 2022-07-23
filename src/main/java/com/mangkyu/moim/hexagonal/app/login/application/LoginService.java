@@ -6,7 +6,7 @@ import com.mangkyu.moim.hexagonal.app.login.domain.in.LoginUseCase;
 import com.mangkyu.moim.hexagonal.app.login.errors.LoginErrorCode;
 import com.mangkyu.moim.hexagonal.app.login.errors.LoginException;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
-import com.mangkyu.moim.hexagonal.app.member.domain.port.out.LoadMemberPort;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.out.LoadMemberPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.security.crypto.password.PasswordEncoder;
