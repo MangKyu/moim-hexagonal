@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Repository
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class LoadOrganizerPersistenceAdapter implements LoadOrganizerPort {
 
