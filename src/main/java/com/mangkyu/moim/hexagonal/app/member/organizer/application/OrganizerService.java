@@ -2,7 +2,6 @@ package com.mangkyu.moim.hexagonal.app.member.organizer.application;
 
 import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberErrorCode;
 import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberException;
-import com.mangkyu.moim.hexagonal.app.member.organizer.converter.OrganizerConverter;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.port.in.OrganizerUseCase;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.port.out.LoadOrganizerPort;
@@ -11,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
