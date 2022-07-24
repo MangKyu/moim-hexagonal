@@ -79,7 +79,6 @@ class OrganizerConverterTest {
         assertThat(result.getGender()).isEqualTo(organizer.getGender());
         assertThat(result.getEmail()).isEqualTo(organizer.getEmail());
         assertThat(result.getLoginId()).isEqualTo(organizer.getLoginId());
-        assertThat(result.getPassword()).isEqualTo(organizer.getPassword());
         assertThat(result.getBelongs()).isEqualTo(organizer.getBelongs());
     }
 
