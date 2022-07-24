@@ -1,4 +1,4 @@
-package com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web;
+package com.mangkyu.moim.hexagonal.app.member.participant.adapter.web;
 
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
 import lombok.Builder;
@@ -12,14 +12,13 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-public class AddOrganizerResponse {
+public class ModifyParticipantRequest {
 
-    private final Long id;
     private final String name;
     private final LocalDate birth;
     private final Gender gender;
     private final String email;
-    private final String loginId;
-    private final String belongs;
+    private final String limitedIngredient;
+    private final String introduce;
 
 }

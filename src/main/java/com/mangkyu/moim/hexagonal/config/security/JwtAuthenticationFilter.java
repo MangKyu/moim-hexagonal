@@ -23,6 +23,7 @@ class JwtAuthenticationFilter implements Filter {
 
     private static final Map<String, HttpMethod> patternMap = Map.of(
             "/api/members/organizers", HttpMethod.POST,
+            "/api/members/participants", HttpMethod.POST,
             "/api/login", HttpMethod.POST
     );
 

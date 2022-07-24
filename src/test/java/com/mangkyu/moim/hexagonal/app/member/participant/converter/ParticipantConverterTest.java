@@ -2,12 +2,14 @@ package com.mangkyu.moim.hexagonal.app.member.participant.converter;
 
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.persistence.ParticipantEntity;
+import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.AddParticipantRequest;
+import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.AddParticipantResponse;
+import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.ModifyParticipantRequest;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.Participant;
 import org.junit.jupiter.api.Test;
 
 import static com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource.member;
-import static com.mangkyu.moim.hexagonal.app.member.participant.ParticipantTestSource.participant;
-import static com.mangkyu.moim.hexagonal.app.member.participant.ParticipantTestSource.participantEntity;
+import static com.mangkyu.moim.hexagonal.app.member.participant.ParticipantTestSource.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ParticipantConverterTest {
@@ -45,6 +47,52 @@ class ParticipantConverterTest {
         assertThat(result.getEmail()).isEqualTo(participantEntity.getEmail());
         assertThat(result.getLoginId()).isEqualTo(participantEntity.getLoginId());
         assertThat(result.getPassword()).isEqualTo(participantEntity.getPassword());
+    }
+
+    @Test
+    void participant에서로addParticipantResponse변환() {
+        final Participant participant = participant();
+
+        final AddParticipantResponse result = ParticipantConverter.INSTANCE.toAddParticipantResponse(participant);
+
+        assertThat(result.getId()).isEqualTo(participant.getId());
+        assertThat(result.getName()).isEqualTo(participant.getName());
+        assertThat(result.getBirth()).isEqualTo(participant.getBirth());
+        assertThat(result.getGender()).isEqualTo(participant.getGender());
+        assertThat(result.getEmail()).isEqualTo(participant.getEmail());
+        assertThat(result.getLoginId()).isEqualTo(participant.getLoginId());
+        assertThat(result.getIntroduce()).isEqualTo(participant.getIntroduce());
+        assertThat(result.getLimitedIngredient()).isEqualTo(participant.getLimitedIngredient());
+    }
+
+    @Test
+    void addParticipantRequest에서participant로변환() {
+        final AddParticipantRequest request = addParticipantRequest();
+
+        final Participant result = ParticipantConverter.INSTANCE.toParticipant(request);
+
+        assertThat(result.getName()).isEqualTo(request.getName());
+        assertThat(result.getBirth()).isEqualTo(request.getBirth());
+        assertThat(result.getGender()).isEqualTo(request.getGender());
+        assertThat(result.getEmail()).isEqualTo(request.getEmail());
+        assertThat(result.getLoginId()).isEqualTo(request.getLoginId());
+        assertThat(result.getPassword()).isEqualTo(request.getPassword());
+        assertThat(result.getIntroduce()).isEqualTo(request.getIntroduce());
+        assertThat(result.getLimitedIngredient()).isEqualTo(request.getLimitedIngredient());
+    }
+
+    @Test
+    void modifyParticipantRequest에서participant로변환() {
+        final ModifyParticipantRequest request = modifyParticipantRequest();
+
+        final Participant result = ParticipantConverter.INSTANCE.toParticipant(request);
+
+        assertThat(result.getName()).isEqualTo(request.getName());
+        assertThat(result.getBirth()).isEqualTo(request.getBirth());
+        assertThat(result.getGender()).isEqualTo(request.getGender());
+        assertThat(result.getEmail()).isEqualTo(request.getEmail());
+        assertThat(result.getIntroduce()).isEqualTo(request.getIntroduce());
+        assertThat(result.getLimitedIngredient()).isEqualTo(request.getLimitedIngredient());
     }
 
 }
