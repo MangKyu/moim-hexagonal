@@ -29,7 +29,7 @@ class LoadOrganizerPortTest {
 
     @Test
     void 아이디로사용자조회_존재하지않음() {
-        final Optional<Organizer> result = target.findById(-1L);
+        final Optional<Organizer> result = target.findByMember_Id(-1L);
 
         assertThat(result.isPresent()).isFalse();
     }
@@ -38,7 +38,7 @@ class LoadOrganizerPortTest {
     void 아이디로사용자조회_존재함() {
         final OrganizerEntity savedEntity = organizerRepository.save(organizerEntity());
 
-        final Optional<Organizer> result = target.findById(savedEntity.getMember().getId());
+        final Optional<Organizer> result = target.findByMember_Id(savedEntity.getMember().getId());
 
         assertThat(result.isPresent()).isTrue();
     }

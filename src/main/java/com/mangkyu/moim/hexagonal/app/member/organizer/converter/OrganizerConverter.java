@@ -15,8 +15,8 @@ public interface OrganizerConverter {
 
     OrganizerConverter INSTANCE = Mappers.getMapper(OrganizerConverter.class);
 
-    @Mapping(source = "organizer.id", target = "id")
-    OrganizerEntity toOrganizerEntity(final Organizer organizer);
+    @Mapping(source = "request.id", target = "id")
+    OrganizerEntity toOrganizerEntity(final Organizer request);
 
     @Mapping(source = "organizerEntity.id", target = "id")
     Organizer toOrganizer(OrganizerEntity organizerEntity);
@@ -42,12 +42,13 @@ public interface OrganizerConverter {
     Organizer toOrganizer(final ModifyOrganizerRequest request);
 
     @Mappings({
-            @Mapping(source = "organizer.member.name", target = "name"),
-            @Mapping(source = "organizer.member.birth", target = "birth"),
-            @Mapping(source = "organizer.member.gender", target = "gender"),
-            @Mapping(source = "organizer.member.email", target = "email"),
-            @Mapping(source = "organizer.member.loginId", target = "loginId"),
-            @Mapping(source = "organizer.belongs", target = "belongs")
+            @Mapping(source = "request.member.id", target = "id"),
+            @Mapping(source = "request.member.name", target = "name"),
+            @Mapping(source = "request.member.birth", target = "birth"),
+            @Mapping(source = "request.member.gender", target = "gender"),
+            @Mapping(source = "request.member.email", target = "email"),
+            @Mapping(source = "request.member.loginId", target = "loginId"),
+            @Mapping(source = "request.belongs", target = "belongs")
     })
-    AddOrganizerResponse toAddOrganizerResponse(Organizer organizer);
+    AddOrganizerResponse toAddOrganizerResponse(Organizer request);
 }

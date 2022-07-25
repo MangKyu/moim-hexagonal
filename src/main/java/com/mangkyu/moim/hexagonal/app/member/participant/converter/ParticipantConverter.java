@@ -15,8 +15,8 @@ public interface ParticipantConverter {
 
     ParticipantConverter INSTANCE = Mappers.getMapper(ParticipantConverter.class);
 
-    @Mapping(source = "participant.id", target = "id")
-    ParticipantEntity toParticipantEntity(final Participant participant);
+    @Mapping(source = "request.id", target = "id")
+    ParticipantEntity toParticipantEntity(final Participant request);
 
     @Mapping(source = "participantEntity.id", target = "id")
     Participant toParticipant(final ParticipantEntity participantEntity);
@@ -44,13 +44,14 @@ public interface ParticipantConverter {
     Participant toParticipant(final ModifyParticipantRequest request);
 
     @Mappings({
-            @Mapping(source = "participant.member.name", target = "name"),
-            @Mapping(source = "participant.member.birth", target = "birth"),
-            @Mapping(source = "participant.member.gender", target = "gender"),
-            @Mapping(source = "participant.member.email", target = "email"),
-            @Mapping(source = "participant.member.loginId", target = "loginId"),
-            @Mapping(source = "participant.limitedIngredient", target = "limitedIngredient"),
-            @Mapping(source = "participant.introduce", target = "introduce")
+            @Mapping(source = "request.member.id", target = "id"),
+            @Mapping(source = "request.member.name", target = "name"),
+            @Mapping(source = "request.member.birth", target = "birth"),
+            @Mapping(source = "request.member.gender", target = "gender"),
+            @Mapping(source = "request.member.email", target = "email"),
+            @Mapping(source = "request.member.loginId", target = "loginId"),
+            @Mapping(source = "request.limitedIngredient", target = "limitedIngredient"),
+            @Mapping(source = "request.introduce", target = "introduce")
     })
-    AddParticipantResponse toAddParticipantResponse(final Participant participant);
+    AddParticipantResponse toAddParticipantResponse(final Participant request);
 }

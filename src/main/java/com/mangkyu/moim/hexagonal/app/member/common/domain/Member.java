@@ -21,6 +21,8 @@ public class Member {
     private String email;
     private String loginId;
     private String password;
+
+    @Builder.Default
     private Set<MemberRole> roles = new HashSet<>();
 
     public void encryptPassword(final PasswordEncoder passwordEncoder) {

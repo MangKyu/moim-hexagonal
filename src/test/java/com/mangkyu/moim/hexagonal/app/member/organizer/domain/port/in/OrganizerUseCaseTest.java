@@ -44,7 +44,7 @@ class OrganizerUseCaseTest {
         final Organizer organizer = organizer();
         doThrow(new MemberException(MemberErrorCode.NOT_EXIST_MEMBER))
                 .when(loadOrganizerPort)
-                .findById(organizer.getId());
+                .findByMember_Id(organizer.getId());
 
         final MemberException result = assertThrows(
                 MemberException.class,
@@ -58,7 +58,7 @@ class OrganizerUseCaseTest {
         final Organizer organizer = organizer();
         doReturn(Optional.of(organizer))
                 .when(loadOrganizerPort)
-                .findById(organizer.getId());
+                .findByMember_Id(organizer.getId());
 
         doReturn(organizer)
                 .when(saveOrganizerPort)

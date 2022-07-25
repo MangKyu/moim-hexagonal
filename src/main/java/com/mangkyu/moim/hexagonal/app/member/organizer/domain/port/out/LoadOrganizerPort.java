@@ -8,5 +8,5 @@ public interface LoadOrganizerPort {
 
     Organizer findByLoginId(final String loginId);
 
-    Optional<Organizer> findById(final Long id);
+    Optional<Organizer> findByMember_Id(final Long id);
 }
