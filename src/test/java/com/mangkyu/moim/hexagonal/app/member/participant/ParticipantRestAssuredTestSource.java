@@ -10,6 +10,25 @@ import java.util.Map;
 
 public class ParticipantRestAssuredTestSource {
 
+    public static ExtractableResponse<Response> 참여자역할추가(final Long id, final String token) {
+        return RestAssured.given().log().all()
+                .header("Authorization", "Bearer " + token)
+                .body(addParticipantRoleParam())
+                .contentType(ContentType.JSON)
+                .when().patch("/api/members/participants/{id}/role", id)
+                .then().log().all()
+                .extract();
+    }
+
+    private static Map<String, Object> addParticipantRoleParam() {
+        final Map<String, Object> map = new HashMap<>();
+
+        map.put("limitedIngredient", "limitedIngredient");
+        map.put("introduce", "introduce");
+
+        return map;
+    }
+
     public static ExtractableResponse<Response> 참여자추가(final String loginId, final String password) {
         return RestAssured.given().log().all()
                 .body(addParticipantParam(loginId, password))
