@@ -2,6 +2,7 @@ package com.mangkyu.moim.hexagonal.app.member.participant.domain;
 
 
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,4 +20,7 @@ public class Participant {
     @Delegate
     private Member member;
 
+    public void addRole() {
+        member.addRole(MemberRole.ROLE_PARTICIPANT);
+    }
 }

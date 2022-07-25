@@ -1,5 +1,6 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.domain.port.in;
 
+import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
 import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberErrorCode;
 import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberException;
 import com.mangkyu.moim.hexagonal.app.member.organizer.application.OrganizerService;
@@ -89,7 +90,13 @@ class OrganizerUseCaseTest {
                 .when(loadOrganizerPort)
                 .findByLoginId(organizer.getLoginId());
 
-        target.addOrganizer(organizer);
+        doReturn(organizer)
+                .when(saveOrganizerPort)
+                .save(any(Organizer.class));
+
+        final Organizer result = target.addOrganizer(organizer);
+
+        assertThat(result.getRoles()).contains(MemberRole.ROLE_ORGANIZER);
 
         verify(saveOrganizerPort, times(1)).save(any(Organizer.class));
         verify(passwordEncoder, times(1)).encode(any(CharSequence.class));

@@ -18,7 +18,8 @@ public class ParticipantService implements ParticipantUseCase {
     private final SaveParticipantPort saveParticipantPort;
     private final LoadParticipantPort loadParticipantPort;
     private final PasswordEncoder passwordEncoder;
-    
+
+    @Override
     public Participant addParticipant(final Participant participant) {
         final Participant foundParticipant = loadParticipantPort.findByLoginId(participant.getLoginId());
         if (foundParticipant != null) {
@@ -26,6 +27,7 @@ public class ParticipantService implements ParticipantUseCase {
         }
 
         participant.encryptPassword(passwordEncoder);
+        participant.addRole();
         return saveParticipantPort.save(participant);
     }
 

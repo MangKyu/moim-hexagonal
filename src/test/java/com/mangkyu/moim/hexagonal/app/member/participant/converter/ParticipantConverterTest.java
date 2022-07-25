@@ -1,6 +1,7 @@
 package com.mangkyu.moim.hexagonal.app.member.participant.converter;
 
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.persistence.ParticipantEntity;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.AddParticipantRequest;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.AddParticipantResponse;
@@ -19,6 +20,7 @@ class ParticipantConverterTest {
     void participant에서participantEntity로변환() {
         final Member member = member();
         final Participant participant = participant(member);
+        participant.addRole(MemberRole.ROLE_PARTICIPANT);
 
         final ParticipantEntity result = ParticipantConverter.INSTANCE.toParticipantEntity(participant);
 
@@ -31,6 +33,7 @@ class ParticipantConverterTest {
         assertThat(result.getEmail()).isEqualTo(participant.getEmail());
         assertThat(result.getLoginId()).isEqualTo(participant.getLoginId());
         assertThat(result.getPassword()).isEqualTo(participant.getPassword());
+        assertThat(result.getRoles()).isEqualTo(participant.getRoles());
     }
 
     @Test

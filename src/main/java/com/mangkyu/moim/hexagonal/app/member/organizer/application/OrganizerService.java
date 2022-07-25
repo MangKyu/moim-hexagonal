@@ -1,5 +1,6 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.application;
 
+import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
 import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberErrorCode;
 import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberException;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
@@ -19,6 +20,7 @@ public class OrganizerService implements OrganizerUseCase {
     private final LoadOrganizerPort loadOrganizerPort;
     private final PasswordEncoder passwordEncoder;
 
+    @Override
     public Organizer addOrganizer(final Organizer organizer) {
         final Organizer foundOrganizer = loadOrganizerPort.findByLoginId(organizer.getLoginId());
         if (foundOrganizer != null) {
@@ -26,6 +28,8 @@ public class OrganizerService implements OrganizerUseCase {
         }
 
         organizer.encryptPassword(passwordEncoder);
+
+        organizer.addRole(MemberRole.ROLE_ORGANIZER);
         return saveOrganizerPort.save(organizer);
     }
 

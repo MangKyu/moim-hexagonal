@@ -2,8 +2,11 @@ package com.mangkyu.moim.hexagonal.app.member.common.converter;
 
 import com.mangkyu.moim.hexagonal.app.member.common.adapter.persistence.MemberEntity;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.Set;
 
 import static com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource.member;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,15 +27,19 @@ class MemberConverterTest {
 
     @Test
     void MemberEntity에서Member로변환() {
-        final MemberEntity memberEntity = MemberConverter.INSTANCE.toMemberEntity(member());
+        final Member member = member();
+        member.addRole(MemberRole.ROLE_ORGANIZER);
+        
+        final MemberEntity memberEntity = MemberConverter.INSTANCE.toMemberEntity(member);
         ReflectionTestUtils.setField(memberEntity, "id", 1L);
 
-        final Member member = MemberConverter.INSTANCE.toMember(memberEntity);
+        final Member result = MemberConverter.INSTANCE.toMember(memberEntity);
 
         assertAll(
-                () -> assertThat(member.getId()).isEqualTo(memberEntity.getId()),
-                () -> assertThat(member.getEmail()).isEqualTo(memberEntity.getEmail()),
-                () -> assertThat(member.getPassword()).isEqualTo(memberEntity.getPassword())
+                () -> assertThat(result.getId()).isEqualTo(memberEntity.getId()),
+                () -> assertThat(result.getEmail()).isEqualTo(memberEntity.getEmail()),
+                () -> assertThat(result.getRoles()).isEqualTo(memberEntity.getRoles()),
+                () -> assertThat(result.getPassword()).isEqualTo(memberEntity.getPassword())
         );
     }
 

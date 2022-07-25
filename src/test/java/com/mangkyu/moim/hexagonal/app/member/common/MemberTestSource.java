@@ -4,9 +4,12 @@ import com.mangkyu.moim.hexagonal.app.member.common.adapter.persistence.MemberEn
 import com.mangkyu.moim.hexagonal.app.member.common.converter.MemberConverter;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MemberTestSource {
 
@@ -20,6 +23,7 @@ public class MemberTestSource {
                 .email("mangkyu@naver.com")
                 .loginId("mangkyu")
                 .password(new BCryptPasswordEncoder().encode("dkssudgktpdy123!@#"))
+                .roles(new HashSet<>())
                 .build();
     }
 
