@@ -1,5 +1,9 @@
 package com.mangkyu.moim.hexagonal.app.member.participant.adapter.web;
 
+import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerResponse;
+import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRoleRequest;
+import com.mangkyu.moim.hexagonal.app.member.organizer.converter.OrganizerConverter;
+import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import com.mangkyu.moim.hexagonal.app.member.participant.converter.ParticipantConverter;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.Participant;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.port.in.ParticipantUseCase;
@@ -31,6 +35,16 @@ class ParticipantWebAdapter {
 
         final Participant participant = participantUseCase.modifyParticipant(id, ParticipantConverter.INSTANCE.toParticipant(request));
         return ResponseEntity.ok(ParticipantConverter.INSTANCE.toAddParticipantResponse(participant));
+    }
+
+    @PostMapping("/api/members/participants/{id}/role")
+    public ResponseEntity<AddParticipantResponse> addParticipantRole(
+            @PathVariable final Long id,
+            @RequestBody @Valid final AddParticipantRoleRequest request) {
+        final Participant participant = participantUseCase.addRole(id, ParticipantConverter.INSTANCE.toParticipant(request));
+
+        return ResponseEntity.created(URI.create("/api/members/participants/" + participant.getId() + "/role"))
+                .body(ParticipantConverter.INSTANCE.toAddParticipantResponse(participant));
     }
 
 }

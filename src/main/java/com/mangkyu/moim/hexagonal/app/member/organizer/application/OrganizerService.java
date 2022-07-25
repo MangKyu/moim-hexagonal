@@ -41,4 +41,9 @@ public class OrganizerService implements OrganizerUseCase {
         return saveOrganizerPort.save(organizer);
     }
 
+    @Override
+    public Organizer addRole(final Long id, final Organizer organizer) {
+        return null;
+    }
+
 }

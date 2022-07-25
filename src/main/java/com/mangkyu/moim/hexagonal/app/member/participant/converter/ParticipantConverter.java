@@ -3,6 +3,7 @@ package com.mangkyu.moim.hexagonal.app.member.participant.converter;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.persistence.ParticipantEntity;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.AddParticipantRequest;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.AddParticipantResponse;
+import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.AddParticipantRoleRequest;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.ModifyParticipantRequest;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.Participant;
 import org.mapstruct.Mapper;
@@ -54,4 +55,7 @@ public interface ParticipantConverter {
             @Mapping(source = "request.introduce", target = "introduce")
     })
     AddParticipantResponse toAddParticipantResponse(final Participant request);
+
+
+    Participant toParticipant(AddParticipantRoleRequest request);
 }

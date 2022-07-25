@@ -33,4 +33,14 @@ class OrganizerWebAdapter {
         return ResponseEntity.ok(OrganizerConverter.INSTANCE.toAddOrganizerResponse(organizer));
     }
 
+    @PostMapping("/api/members/organizers/{id}/role")
+    public ResponseEntity<AddOrganizerResponse> addOrganizerRole(
+            @PathVariable final Long id,
+            @RequestBody @Valid final AddOrganizerRoleRequest request) {
+        final Organizer organizer = organizerUseCase.addRole(id, OrganizerConverter.INSTANCE.toOrganizer(request));
+
+        return ResponseEntity.created(URI.create("/api/members/organizers/" + organizer.getId() + "/role"))
+                .body(OrganizerConverter.INSTANCE.toAddOrganizerResponse(organizer));
+    }
+
 }

@@ -7,4 +7,6 @@ public interface OrganizerUseCase {
     Organizer addOrganizer(final Organizer organizer);
 
     Organizer modifyOrganizer(final Long id, final Organizer organizer);
+
+    Organizer addRole(final Long id, final Organizer organizer);
 }

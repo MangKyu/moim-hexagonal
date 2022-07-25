@@ -39,4 +39,9 @@ public class ParticipantService implements ParticipantUseCase {
         return saveParticipantPort.save(participant);
     }
 
+    @Override
+    public Participant addRole(final Long id, final Participant participant) {
+        return null;
+    }
+
 }

@@ -3,6 +3,7 @@ package com.mangkyu.moim.hexagonal.app.member.organizer.converter;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerEntity;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRequest;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerResponse;
+import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRoleRequest;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.ModifyOrganizerRequest;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import org.mapstruct.Mapper;
@@ -40,6 +41,11 @@ public interface OrganizerConverter {
             @Mapping(source = "request.belongs", target = "belongs")
     })
     Organizer toOrganizer(final ModifyOrganizerRequest request);
+
+    @Mappings({
+            @Mapping(source = "request.belongs", target = "belongs")
+    })
+    Organizer toOrganizer(final AddOrganizerRoleRequest request);
 
     @Mappings({
             @Mapping(source = "request.member.id", target = "id"),

@@ -2,6 +2,8 @@ package com.mangkyu.moim.hexagonal.app.member.participant.adapter.web;
 
 import com.google.gson.Gson;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
+import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRoleRequest;
+import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.Participant;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.port.in.ParticipantUseCase;
 import org.junit.jupiter.api.Test;
@@ -14,8 +16,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.addOrganizerRoleRequest;
+import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.organizer;
 import static com.mangkyu.moim.hexagonal.app.member.participant.ParticipantTestSource.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,6 +35,26 @@ class ParticipantWebAdapterTest {
     private ParticipantUseCase participantUseCase;
     @Autowired
     private ParseLoginTokenUseCase tokenUseCase;
+
+    @Test
+    void 권한추가성공() throws Exception {
+        final AddParticipantRoleRequest request = addParticipantRoleRequest();
+
+        doReturn("token")
+                .when(tokenUseCase)
+                .parseEmail(any());
+
+        doReturn(participant())
+                .when(participantUseCase)
+                .addRole(anyLong(), any(Participant.class));
+
+
+        final ResultActions result = target.perform(MockMvcRequestBuilders.post("/api/members/participants/{id}/role", 1L)
+                .content(gson.toJson(request))
+                .contentType(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isCreated());
+    }
 
     @Test
     void 사용자정보수정성공() throws Exception {

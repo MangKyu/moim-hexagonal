@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Builder
@@ -21,5 +22,6 @@ public class AddOrganizerResponse {
     private final String email;
     private final String loginId;
     private final String belongs;
+    private final Set<String> roles;
 
 }

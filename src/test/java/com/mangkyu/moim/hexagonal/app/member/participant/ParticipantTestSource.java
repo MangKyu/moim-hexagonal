@@ -5,6 +5,7 @@ import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.persistence.ParticipantEntity;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.AddParticipantRequest;
+import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.AddParticipantRoleRequest;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.ModifyParticipantRequest;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.Participant;
 
@@ -67,6 +68,13 @@ public class ParticipantTestSource {
                 .loginId("mangkyu")
                 .email(email)
                 .password(password)
+                .introduce("introduce")
+                .limitedIngredient("limitedIngredient")
+                .build();
+    }
+
+    public static AddParticipantRoleRequest addParticipantRoleRequest() {
+        return AddParticipantRoleRequest.builder()
                 .introduce("introduce")
                 .limitedIngredient("limitedIngredient")
                 .build();

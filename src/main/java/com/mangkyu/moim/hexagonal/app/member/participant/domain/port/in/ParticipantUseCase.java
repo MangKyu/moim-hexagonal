@@ -7,4 +7,6 @@ public interface ParticipantUseCase {
     Participant addParticipant(final Participant participant);
 
     Participant modifyParticipant(final Long id, final Participant participant);
+
+    Participant addRole(Long id, Participant participant);
 }

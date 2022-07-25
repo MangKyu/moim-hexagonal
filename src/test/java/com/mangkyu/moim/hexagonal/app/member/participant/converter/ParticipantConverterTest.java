@@ -5,6 +5,7 @@ import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.persistence.ParticipantEntity;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.AddParticipantRequest;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.AddParticipantResponse;
+import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.AddParticipantRoleRequest;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.web.ModifyParticipantRequest;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.Participant;
 import org.junit.jupiter.api.Test;
@@ -80,6 +81,15 @@ class ParticipantConverterTest {
         assertThat(result.getEmail()).isEqualTo(request.getEmail());
         assertThat(result.getLoginId()).isEqualTo(request.getLoginId());
         assertThat(result.getPassword()).isEqualTo(request.getPassword());
+        assertThat(result.getIntroduce()).isEqualTo(request.getIntroduce());
+        assertThat(result.getLimitedIngredient()).isEqualTo(request.getLimitedIngredient());
+    }
+
+    @Test
+    void addParticipantRoleRequest에서participant로변환() {
+        final AddParticipantRoleRequest request = addParticipantRoleRequest();
+
+        final Participant result = ParticipantConverter.INSTANCE.toParticipant(request);
         assertThat(result.getIntroduce()).isEqualTo(request.getIntroduce());
         assertThat(result.getLimitedIngredient()).isEqualTo(request.getLimitedIngredient());
     }

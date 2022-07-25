@@ -5,6 +5,7 @@ import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerEntity;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRequest;
+import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRoleRequest;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.ModifyOrganizerRequest;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 
@@ -74,4 +75,11 @@ public class OrganizerTestSource {
                 .belongs("belongs")
                 .build();
     }
+
+    public static AddOrganizerRoleRequest addOrganizerRoleRequest() {
+        return AddOrganizerRoleRequest.builder()
+                .belongs("belongs")
+                .build();
+    }
+
 }
