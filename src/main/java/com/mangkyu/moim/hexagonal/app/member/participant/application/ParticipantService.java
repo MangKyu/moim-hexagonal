@@ -40,12 +40,14 @@ public class ParticipantService implements ParticipantUseCase {
     }
 
     @Override
-    public Participant addRole(final Long id, final Participant participant) {
-        loadParticipantPort.findById(id)
+    public Participant addRole(final Long id, final Participant addRoleParticipant) {
+        final Participant participant = loadParticipantPort.findById(id)
                 .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_EXIST_MEMBER));
 
         participant.addRole();
-        return saveParticipantPort.save(participant);
+        participant.update(addRoleParticipant);
+
+        return saveParticipantPort.save(addRoleParticipant);
     }
 
 }

@@ -30,4 +30,9 @@ public class Participant {
 
         member.addRole(role);
     }
+
+    public void update(final Participant addRoleParticipant) {
+        this.limitedIngredient = addRoleParticipant.limitedIngredient;
+        this.introduce = addRoleParticipant.introduce;
+    }
 }

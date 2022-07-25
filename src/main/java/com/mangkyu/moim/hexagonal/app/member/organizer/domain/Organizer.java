@@ -29,4 +29,8 @@ public class Organizer {
         member.addRole(role);
     }
 
+    public void update(final Organizer addRoleOrganizer) {
+        this.belongs = addRoleOrganizer.belongs;
+    }
+
 }

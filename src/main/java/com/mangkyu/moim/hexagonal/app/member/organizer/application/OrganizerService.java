@@ -42,11 +42,13 @@ public class OrganizerService implements OrganizerUseCase {
     }
 
     @Override
-    public Organizer addRole(final Long id, final Organizer organizer) {
-        loadOrganizerPort.findById(id)
+    public Organizer addRole(final Long id, final Organizer addRoleOrganizer) {
+        final Organizer organizer = loadOrganizerPort.findById(id)
                 .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_EXIST_MEMBER));
 
         organizer.addRole();
+        organizer.update(addRoleOrganizer);
+
         return saveOrganizerPort.save(organizer);
     }
 
