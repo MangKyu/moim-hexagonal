@@ -95,4 +95,47 @@ class ParticipantUseCaseTest {
         verify(passwordEncoder, times(1)).encode(any(CharSequence.class));
     }
 
+    @Test
+    void 구성원역할추가실패_존재하지않는사용자() {
+        final Participant participant = participant();
+        doThrow(new MemberException(MemberErrorCode.NOT_EXIST_MEMBER))
+                .when(loadParticipantPort)
+                .findById(participant.getId());
+
+        final MemberException result = assertThrows(
+                MemberException.class,
+                () -> target.addRole(participant.getId(), participant));
+
+        assertThat(result.getErrorCode()).isEqualTo(MemberErrorCode.NOT_EXIST_MEMBER);
+    }
+
+    @Test
+    void 구성원역할추가실패_중복된권한() {
+        final Participant participant = participant();
+        participant.addRole();
+
+        doReturn(Optional.of(participant))
+                .when(loadParticipantPort)
+                .findById(participant.getId());
+
+        final MemberException result = assertThrows(
+                MemberException.class,
+                () -> target.addRole(participant.getId(), participant));
+
+        assertThat(result.getErrorCode()).isEqualTo(MemberErrorCode.DUPLICATE_ROLE);
+    }
+
+    @Test
+    void 구성원역할추가성공() {
+        final Participant participant = participant();
+
+        doReturn(Optional.of(participant))
+                .when(loadParticipantPort)
+                .findById(participant.getId());
+
+        target.addRole(participant.getId(), participant);
+
+        verify(saveParticipantPort, times(1)).save(any(Participant.class));
+    }
+
 }

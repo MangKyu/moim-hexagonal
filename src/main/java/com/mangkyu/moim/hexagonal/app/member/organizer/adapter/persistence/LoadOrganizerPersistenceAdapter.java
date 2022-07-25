@@ -27,7 +27,7 @@ public class LoadOrganizerPersistenceAdapter implements LoadOrganizerPort {
     }
 
     @Override
-    public Optional<Organizer> findByMember_Id(final Long id) {
+    public Optional<Organizer> findById(final Long id) {
         return organizerRepository.findByMember_Id(id)
                 .map(OrganizerConverter.INSTANCE::toOrganizer);
     }

@@ -32,4 +32,8 @@ public class Member {
     public void addRole(final MemberRole role) {
         roles.add(role);
     }
+
+    public boolean hasRole(final MemberRole role) {
+        return roles.contains(role);
+    }
 }

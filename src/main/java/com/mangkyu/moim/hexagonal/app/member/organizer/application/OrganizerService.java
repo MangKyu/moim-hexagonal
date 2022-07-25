@@ -35,7 +35,7 @@ public class OrganizerService implements OrganizerUseCase {
 
     @Override
     public Organizer modifyOrganizer(final Long id, final Organizer organizer) {
-        loadOrganizerPort.findByMember_Id(id)
+        loadOrganizerPort.findById(id)
                 .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_EXIST_MEMBER));
 
         return saveOrganizerPort.save(organizer);
@@ -43,7 +43,11 @@ public class OrganizerService implements OrganizerUseCase {
 
     @Override
     public Organizer addRole(final Long id, final Organizer organizer) {
-        return null;
+        loadOrganizerPort.findById(id)
+                .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_EXIST_MEMBER));
+
+        organizer.addRole();
+        return saveOrganizerPort.save(organizer);
     }
 
 }

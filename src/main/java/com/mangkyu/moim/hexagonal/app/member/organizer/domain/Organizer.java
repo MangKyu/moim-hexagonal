@@ -1,6 +1,9 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.domain;
 
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
+import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberErrorCode;
+import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,5 +19,14 @@ public class Organizer {
 
     @Delegate
     private Member member;
+
+    public void addRole() {
+        final MemberRole role = MemberRole.ROLE_ORGANIZER;
+        if (member.hasRole(role)) {
+            throw new MemberException(MemberErrorCode.DUPLICATE_ROLE);
+        }
+
+        member.addRole(role);
+    }
 
 }

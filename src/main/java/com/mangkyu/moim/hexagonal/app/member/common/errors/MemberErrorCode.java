@@ -13,6 +13,7 @@ public enum MemberErrorCode implements ErrorCode {
 
     NOT_EXIST_MEMBER(HttpStatus.NOT_FOUND, "Member is not exists"),
     DUPLICATE_LOGINID(HttpStatus.BAD_REQUEST, "Email is duplicated"),
+    DUPLICATE_ROLE(HttpStatus.BAD_REQUEST, "Role is duplicated"),
     ;
 
     private final HttpStatus httpStatus;

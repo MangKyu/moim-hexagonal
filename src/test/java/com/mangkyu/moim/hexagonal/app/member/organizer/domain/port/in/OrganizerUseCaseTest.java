@@ -44,7 +44,7 @@ class OrganizerUseCaseTest {
         final Organizer organizer = organizer();
         doThrow(new MemberException(MemberErrorCode.NOT_EXIST_MEMBER))
                 .when(loadOrganizerPort)
-                .findByMember_Id(organizer.getId());
+                .findById(organizer.getId());
 
         final MemberException result = assertThrows(
                 MemberException.class,
@@ -58,7 +58,7 @@ class OrganizerUseCaseTest {
         final Organizer organizer = organizer();
         doReturn(Optional.of(organizer))
                 .when(loadOrganizerPort)
-                .findByMember_Id(organizer.getId());
+                .findById(organizer.getId());
 
         doReturn(organizer)
                 .when(saveOrganizerPort)
@@ -100,6 +100,49 @@ class OrganizerUseCaseTest {
 
         verify(saveOrganizerPort, times(1)).save(any(Organizer.class));
         verify(passwordEncoder, times(1)).encode(any(CharSequence.class));
+    }
+
+    @Test
+    void 구성원역할추가실패_존재하지않는사용자() {
+        final Organizer organizer = organizer();
+        doThrow(new MemberException(MemberErrorCode.NOT_EXIST_MEMBER))
+                .when(loadOrganizerPort)
+                .findById(organizer.getId());
+
+        final MemberException result = assertThrows(
+                MemberException.class,
+                () -> target.addRole(organizer.getId(), organizer));
+
+        assertThat(result.getErrorCode()).isEqualTo(MemberErrorCode.NOT_EXIST_MEMBER);
+    }
+
+    @Test
+    void 구성원역할추가실패_중복된권한() {
+        final Organizer organizer = organizer();
+        organizer.addRole();
+
+        doReturn(Optional.of(organizer))
+                .when(loadOrganizerPort)
+                .findById(organizer.getId());
+
+        final MemberException result = assertThrows(
+                MemberException.class,
+                () -> target.addRole(organizer.getId(), organizer));
+
+        assertThat(result.getErrorCode()).isEqualTo(MemberErrorCode.DUPLICATE_ROLE);
+    }
+
+    @Test
+    void 구성원역할추가성공() {
+        final Organizer organizer = organizer();
+
+        doReturn(Optional.of(organizer))
+                .when(loadOrganizerPort)
+                .findById(organizer.getId());
+
+        target.addRole(organizer.getId(), organizer);
+
+        verify(saveOrganizerPort, times(1)).save(any(Organizer.class));
     }
 
 }
