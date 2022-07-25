@@ -15,7 +15,7 @@ public class ParticipantRestAssuredTestSource {
                 .header("Authorization", "Bearer " + token)
                 .body(addParticipantRoleParam())
                 .contentType(ContentType.JSON)
-                .when().patch("/api/members/participants/{id}/role", id)
+                .when().post("/api/members/participants/{id}/role", id)
                 .then().log().all()
                 .extract();
     }

@@ -15,7 +15,7 @@ public class OrganizerRestAssuredTestSource {
                 .header("Authorization", "Bearer " + token)
                 .body(addParticipantRoleParam())
                 .contentType(ContentType.JSON)
-                .when().patch("/api/members/organizers/{id}/role", id)
+                .when().post("/api/members/organizers/{id}/role", id)
                 .then().log().all()
                 .extract();
     }
