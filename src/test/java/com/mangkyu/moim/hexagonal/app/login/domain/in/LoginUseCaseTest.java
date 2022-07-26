@@ -77,7 +77,7 @@ class LoginUseCaseTest {
 
         doReturn("accessToken")
                 .when(generateLoginTokenUseCase)
-                .generate(login.getLoginId());
+                .generate(member);
 
         final String result = target.login(login);
         assertThat(result).isNotNull();

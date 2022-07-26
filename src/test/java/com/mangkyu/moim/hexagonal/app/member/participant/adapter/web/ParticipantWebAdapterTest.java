@@ -2,8 +2,6 @@ package com.mangkyu.moim.hexagonal.app.member.participant.adapter.web;
 
 import com.google.gson.Gson;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
-import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRoleRequest;
-import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.Participant;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.port.in.ParticipantUseCase;
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.addOrganizerRoleRequest;
 import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.organizer;
 import static com.mangkyu.moim.hexagonal.app.member.participant.ParticipantTestSource.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -42,7 +39,7 @@ class ParticipantWebAdapterTest {
 
         doReturn("token")
                 .when(tokenUseCase)
-                .parseEmail(any());
+                .parseClaims(any());
 
         doReturn(participant())
                 .when(participantUseCase)
@@ -61,7 +58,7 @@ class ParticipantWebAdapterTest {
         final ModifyParticipantRequest request = modifyParticipantRequest();
         doReturn("token")
                 .when(tokenUseCase)
-                .parseEmail(any());
+                .parseClaims(any());
 
         doReturn(participant())
                 .when(participantUseCase)

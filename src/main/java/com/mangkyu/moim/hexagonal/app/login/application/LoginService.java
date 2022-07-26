@@ -32,6 +32,6 @@ public class LoginService implements LoginUseCase {
             throw new LoginException(LogLevel.INFO, LoginErrorCode.INVALID_EMAIL_OR_PASSWORD);
         }
 
-        return generateLoginTokenUseCase.generate(login.getLoginId());
+        return generateLoginTokenUseCase.generate(member);
     }
 }

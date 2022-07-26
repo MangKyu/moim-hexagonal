@@ -58,7 +58,7 @@ class JwtAuthenticationFilter implements Filter {
     }
 
     private String findEmailFromRequest(final String authHeader) {
-        final String email = parseLoginTokenUseCase.parseEmail(authHeader);
+        final String email = parseLoginTokenUseCase.parseClaims(authHeader);
         if (StringUtils.hasText(email)) {
             return email;
         }

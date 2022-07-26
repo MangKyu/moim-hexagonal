@@ -38,7 +38,7 @@ class OrganizerWebAdapterTest {
 
         doReturn("token")
                 .when(tokenUseCase)
-                .parseEmail(any());
+                .parseClaims(any());
 
         doReturn(organizer())
                 .when(organizerUseCase)
@@ -57,7 +57,7 @@ class OrganizerWebAdapterTest {
         final ModifyOrganizerRequest request = modifyOrganizerRequest();
         doReturn("token")
                 .when(tokenUseCase)
-                .parseEmail(any());
+                .parseClaims(any());
 
         doReturn(organizer())
                 .when(organizerUseCase)

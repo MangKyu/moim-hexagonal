@@ -48,7 +48,7 @@ class JwtAuthenticationFilterTest {
     void 이메일이이존재하지않음() throws ServletException, IOException {
         doReturn(null)
                 .when(parseLoginTokenUseCase)
-                .parseEmail(headerToken);
+                .parseClaims(headerToken);
 
         target.doFilter(servletRequest, servletResponse, filterChain);
 
@@ -70,7 +70,7 @@ class JwtAuthenticationFilterTest {
     void 인증필터진행() throws ServletException, IOException {
         doReturn("email")
                 .when(parseLoginTokenUseCase)
-                .parseEmail(headerToken);
+                .parseClaims(headerToken);
 
         target.doFilter(servletRequest, servletResponse, filterChain);
 

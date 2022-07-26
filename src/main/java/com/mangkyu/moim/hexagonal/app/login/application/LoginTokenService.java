@@ -4,6 +4,7 @@ import com.mangkyu.moim.hexagonal.app.errors.CommonErrorCode;
 import com.mangkyu.moim.hexagonal.app.errors.CommonException;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.GenerateLoginTokenUseCase;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -25,7 +26,7 @@ public class LoginTokenService implements GenerateLoginTokenUseCase, ParseLoginT
     private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
     @Override
-    public String parseEmail(final String token) {
+    public String parseClaims(final String token) {
         if (token == null) {
             throw new CommonException(CommonErrorCode.UNAUTHORIZED);
         }
@@ -59,18 +60,18 @@ public class LoginTokenService implements GenerateLoginTokenUseCase, ParseLoginT
     }
 
     @Override
-    public String generate(final String email) {
+    public String generate(final Member member) {
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(member.getLoginId())
                 .setHeader(createHeader())
-                .setClaims(createClaims(email))
+                .setClaims(createClaims(member))
                 .setExpiration(createExpireDateForOneMonth())
                 .signWith(signatureAlgorithm, createSigningKey()).compact();
     }
 
     private Date createExpireDateForOneMonth() {
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.DATE, 30);
+        c.add(Calendar.HOUR, 24);
         return c.getTime();
     }
 
@@ -84,9 +85,12 @@ public class LoginTokenService implements GenerateLoginTokenUseCase, ParseLoginT
         return header;
     }
 
-    private Map<String, Object> createClaims(final Object email) {
+    private Map<String, Object> createClaims(final Member member) {
         final Map<String, Object> claims = new HashMap<>();
-        claims.put("email", email);
+        claims.put("loginId", member.getLoginId());
+        claims.put("gender", member.getGender());
+        claims.put("email", member.getEmail());
+        claims.put("roles", member.getRoles());
         return claims;
     }
 

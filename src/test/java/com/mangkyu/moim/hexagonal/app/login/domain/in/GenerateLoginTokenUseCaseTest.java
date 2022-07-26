@@ -1,11 +1,11 @@
 package com.mangkyu.moim.hexagonal.app.login.domain.in;
 
 import com.mangkyu.moim.hexagonal.app.login.application.LoginTokenService;
-import com.mangkyu.moim.hexagonal.app.login.domain.Login;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.mangkyu.moim.hexagonal.app.login.LoginTestSource.login;
+import static com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource.member;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class GenerateLoginTokenUseCaseTest {
@@ -19,9 +19,9 @@ class GenerateLoginTokenUseCaseTest {
 
     @Test
     void 토큰발급() {
-        final Login login = login();
+        final Member member = member();
 
-        final String result = target.generate(login.getLoginId());
+        final String result = target.generate(member);
 
         assertThat(result).isNotNull();
     }
