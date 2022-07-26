@@ -31,8 +31,10 @@ public class Participant {
         member.addRole(role);
     }
 
-    public void update(final Participant addRoleParticipant) {
-        this.limitedIngredient = addRoleParticipant.limitedIngredient;
-        this.introduce = addRoleParticipant.introduce;
+    public void addRole(Member member) {
+        this.member = member;
+        this.id = member.getId();
+        addRole();
     }
+
 }

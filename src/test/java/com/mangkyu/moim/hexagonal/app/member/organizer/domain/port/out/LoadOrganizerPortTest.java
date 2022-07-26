@@ -1,5 +1,6 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.domain.port.out;
 
+import com.mangkyu.moim.hexagonal.app.member.common.adapter.persistence.MemberRepository;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.LoadOrganizerPersistenceAdapter;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerEntity;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerRepository;
@@ -22,9 +23,12 @@ class LoadOrganizerPortTest {
     @Autowired
     private OrganizerRepository organizerRepository;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
     @BeforeEach
     void setUp() {
-        target = new LoadOrganizerPersistenceAdapter(organizerRepository);
+        target = new LoadOrganizerPersistenceAdapter(organizerRepository, memberRepository);
     }
 
     @Test

@@ -29,8 +29,10 @@ public class Organizer {
         member.addRole(role);
     }
 
-    public void update(final Organizer addRoleOrganizer) {
-        this.belongs = addRoleOrganizer.belongs;
+    public void addRole(final Member member) {
+        this.member = member;
+        this.id = member.getId();
+        addRole();
     }
 
 }

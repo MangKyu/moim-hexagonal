@@ -18,7 +18,8 @@ public class SaveOrganizerPersistenceAdapter implements SaveOrganizerPort {
 
     @Override
     public Organizer save(final Organizer organizer) {
-        final OrganizerEntity savedEntity = organizerRepository.save(OrganizerConverter.INSTANCE.toOrganizerEntity(organizer));
+        final OrganizerEntity entity = OrganizerConverter.INSTANCE.toOrganizerEntity(organizer);
+        final OrganizerEntity savedEntity = organizerRepository.save(entity);
         return OrganizerConverter.INSTANCE.toOrganizer(savedEntity);
     }
 }

@@ -1,5 +1,6 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.application;
 
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
 import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberErrorCode;
 import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberException;
@@ -42,12 +43,11 @@ public class OrganizerService implements OrganizerUseCase {
     }
 
     @Override
-    public Organizer addRole(final Long id, final Organizer addRoleOrganizer) {
-        final Organizer organizer = loadOrganizerPort.findById(id)
+    public Organizer addRole(final Long id, final Organizer organizer) {
+        final Member member = loadOrganizerPort.findMemberById(id)
                 .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_EXIST_MEMBER));
 
-        organizer.addRole();
-        organizer.update(addRoleOrganizer);
+        organizer.addRole(member);
 
         return saveOrganizerPort.save(organizer);
     }

@@ -107,7 +107,7 @@ class OrganizerUseCaseTest {
         final Organizer organizer = organizer();
         doThrow(new MemberException(MemberErrorCode.NOT_EXIST_MEMBER))
                 .when(loadOrganizerPort)
-                .findById(organizer.getId());
+                .findMemberById(organizer.getId());
 
         final MemberException result = assertThrows(
                 MemberException.class,
@@ -121,9 +121,9 @@ class OrganizerUseCaseTest {
         final Organizer organizer = organizer();
         organizer.addRole();
 
-        doReturn(Optional.of(organizer))
+        doReturn(Optional.of(organizer.getMember()))
                 .when(loadOrganizerPort)
-                .findById(organizer.getId());
+                .findMemberById(organizer.getId());
 
         final MemberException result = assertThrows(
                 MemberException.class,
@@ -136,9 +136,9 @@ class OrganizerUseCaseTest {
     void 구성원역할추가성공() {
         final Organizer organizer = organizer();
 
-        doReturn(Optional.of(organizer))
+        doReturn(Optional.of(organizer.getMember()))
                 .when(loadOrganizerPort)
-                .findById(organizer.getId());
+                .findMemberById(organizer.getId());
 
         target.addRole(organizer.getId(), organizer);
 

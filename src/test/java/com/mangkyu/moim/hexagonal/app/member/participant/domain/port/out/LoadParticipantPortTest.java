@@ -1,5 +1,6 @@
 package com.mangkyu.moim.hexagonal.app.member.participant.domain.port.out;
 
+import com.mangkyu.moim.hexagonal.app.member.common.adapter.persistence.MemberRepository;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.persistence.LoadParticipantPersistenceAdapter;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.persistence.ParticipantEntity;
 import com.mangkyu.moim.hexagonal.app.member.participant.adapter.persistence.ParticipantRepository;
@@ -21,10 +22,12 @@ class LoadParticipantPortTest {
 
     @Autowired
     private ParticipantRepository participantRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @BeforeEach
     void setUp() {
-        target = new LoadParticipantPersistenceAdapter(participantRepository);
+        target = new LoadParticipantPersistenceAdapter(participantRepository, memberRepository);
     }
 
     @Test

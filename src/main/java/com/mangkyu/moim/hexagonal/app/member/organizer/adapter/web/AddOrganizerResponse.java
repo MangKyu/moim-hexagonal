@@ -1,6 +1,7 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web;
 
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,6 @@ public class AddOrganizerResponse {
     private final String email;
     private final String loginId;
     private final String belongs;
-    private final Set<String> roles;
+    private final Set<MemberRole> roles;
 
 }

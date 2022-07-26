@@ -100,7 +100,7 @@ class ParticipantUseCaseTest {
         final Participant participant = participant();
         doThrow(new MemberException(MemberErrorCode.NOT_EXIST_MEMBER))
                 .when(loadParticipantPort)
-                .findById(participant.getId());
+                .findMemberById(participant.getId());
 
         final MemberException result = assertThrows(
                 MemberException.class,
@@ -114,9 +114,9 @@ class ParticipantUseCaseTest {
         final Participant participant = participant();
         participant.addRole();
 
-        doReturn(Optional.of(participant))
+        doReturn(Optional.of(participant.getMember()))
                 .when(loadParticipantPort)
-                .findById(participant.getId());
+                .findMemberById(participant.getId());
 
         final MemberException result = assertThrows(
                 MemberException.class,
@@ -129,9 +129,9 @@ class ParticipantUseCaseTest {
     void 구성원역할추가성공() {
         final Participant participant = participant();
 
-        doReturn(Optional.of(participant))
+        doReturn(Optional.of(participant.getMember()))
                 .when(loadParticipantPort)
-                .findById(participant.getId());
+                .findMemberById(participant.getId());
 
         target.addRole(participant.getId(), participant);
 
