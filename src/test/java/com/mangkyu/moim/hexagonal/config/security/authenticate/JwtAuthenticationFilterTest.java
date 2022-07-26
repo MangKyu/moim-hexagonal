@@ -1,4 +1,4 @@
-package com.mangkyu.moim.hexagonal.config.security;
+package com.mangkyu.moim.hexagonal.config.security.authenticate;
 
 import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
 import org.junit.jupiter.api.BeforeEach;

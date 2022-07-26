@@ -1,4 +1,4 @@
-package com.mangkyu.moim.hexagonal.config.security;
+package com.mangkyu.moim.hexagonal.config.security.authenticate;
 
 import com.mangkyu.moim.hexagonal.app.errors.CommonErrorCode;
 import com.mangkyu.moim.hexagonal.app.errors.CommonException;
@@ -14,11 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
+import static com.mangkyu.moim.hexagonal.config.security.authenticate.TokenConstants.AUTHORIZATION_HEADER;
+import static com.mangkyu.moim.hexagonal.config.security.authenticate.TokenConstants.TOKEN_CLAIMS;
+
 @Component
 @RequiredArgsConstructor
-class JwtAuthenticationFilter implements Filter {
+public class JwtAuthenticationFilter implements Filter {
 
-    private static final String AUTHORIZATION_HEADER = "Authorization";
     private final ParseLoginTokenUseCase parseLoginTokenUseCase;
 
     private static final Map<String, HttpMethod> patternMap = Map.of(
@@ -42,7 +44,7 @@ class JwtAuthenticationFilter implements Filter {
             return;
         }
 
-        request.setAttribute("claims", claims);
+        request.setAttribute(TOKEN_CLAIMS, claims);
         chain.doFilter(request, response);
     }
 
