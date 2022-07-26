@@ -21,4 +21,7 @@ public class LoginTokenClaims {
     private final String loginId;
     private final Set<MemberRole> roles;
 
+    public boolean isIdMatches(final Long id) {
+        return this.id.equals(id);
+    }
 }

@@ -3,6 +3,7 @@ package com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web;
 import com.mangkyu.moim.hexagonal.app.member.organizer.converter.OrganizerConverter;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.port.in.OrganizerUseCase;
+import com.mangkyu.moim.hexagonal.config.security.authorize.HasPathPermission;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ class OrganizerWebAdapter {
                 .body(OrganizerConverter.INSTANCE.toAddOrganizerResponse(organizer));
     }
 
+    @HasPathPermission
     @PatchMapping("/api/members/organizers/{id}")
     public ResponseEntity<AddOrganizerResponse> modifyOrganizer(
             @PathVariable final Long id,
@@ -33,6 +35,7 @@ class OrganizerWebAdapter {
         return ResponseEntity.ok(OrganizerConverter.INSTANCE.toAddOrganizerResponse(organizer));
     }
 
+    @HasPathPermission
     @PostMapping("/api/members/organizers/{id}/role")
     public ResponseEntity<AddOrganizerResponse> addOrganizerRole(
             @PathVariable final Long id,

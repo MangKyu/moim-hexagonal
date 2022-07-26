@@ -1,12 +1,9 @@
 package com.mangkyu.moim.hexagonal.app.member.participant.adapter.web;
 
-import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerResponse;
-import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRoleRequest;
-import com.mangkyu.moim.hexagonal.app.member.organizer.converter.OrganizerConverter;
-import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import com.mangkyu.moim.hexagonal.app.member.participant.converter.ParticipantConverter;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.Participant;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.port.in.ParticipantUseCase;
+import com.mangkyu.moim.hexagonal.config.security.authorize.HasPathPermission;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +25,7 @@ class ParticipantWebAdapter {
                 .body(ParticipantConverter.INSTANCE.toAddParticipantResponse(participant));
     }
 
+    @HasPathPermission
     @PatchMapping("/api/members/participants/{id}")
     public ResponseEntity<AddParticipantResponse> modifyParticipant(
             @PathVariable final Long id,
@@ -37,6 +35,7 @@ class ParticipantWebAdapter {
         return ResponseEntity.ok(ParticipantConverter.INSTANCE.toAddParticipantResponse(participant));
     }
 
+    @HasPathPermission
     @PostMapping("/api/members/participants/{id}/role")
     public ResponseEntity<AddParticipantResponse> addParticipantRole(
             @PathVariable final Long id,

@@ -41,4 +41,14 @@ public class LoginTestSource {
                 .build();
     }
 
+    public static LoginTokenClaims loginTokenClaims(final MemberRole role) {
+        return LoginTokenClaims.builder()
+                .id(1L)
+                .gender(Gender.MALE)
+                .email("mangkyu@naver.com")
+                .loginId("mangkyu1226")
+                .roles(Set.of(role))
+                .build();
+    }
+
 }
