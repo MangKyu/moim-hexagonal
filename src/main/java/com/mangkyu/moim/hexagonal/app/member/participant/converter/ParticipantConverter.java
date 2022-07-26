@@ -52,7 +52,8 @@ public interface ParticipantConverter {
             @Mapping(source = "request.member.email", target = "email"),
             @Mapping(source = "request.member.loginId", target = "loginId"),
             @Mapping(source = "request.limitedIngredient", target = "limitedIngredient"),
-            @Mapping(source = "request.introduce", target = "introduce")
+            @Mapping(source = "request.introduce", target = "introduce"),
+            @Mapping(source = "request.member.roles", target = "roles")
     })
     AddParticipantResponse toAddParticipantResponse(final Participant request);
 

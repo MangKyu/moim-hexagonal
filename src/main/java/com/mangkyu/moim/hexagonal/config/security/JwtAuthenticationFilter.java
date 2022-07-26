@@ -2,11 +2,11 @@ package com.mangkyu.moim.hexagonal.config.security;
 
 import com.mangkyu.moim.hexagonal.app.errors.CommonErrorCode;
 import com.mangkyu.moim.hexagonal.app.errors.CommonException;
+import com.mangkyu.moim.hexagonal.app.login.domain.LoginTokenClaims;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -37,19 +37,19 @@ class JwtAuthenticationFilter implements Filter {
             return;
         }
 
-        final String email = findEmailFromRequest(request, response);
-        if (!StringUtils.hasText(email)) {
+        final LoginTokenClaims claims = findClaimsFromRequest(request, response);
+        if (claims == null) {
             return;
         }
 
-        request.setAttribute("Email", email);
+        request.setAttribute("claims", claims);
         chain.doFilter(request, response);
     }
 
-    private String findEmailFromRequest(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+    private LoginTokenClaims findClaimsFromRequest(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
         try {
             final String authHeader = request.getHeader(AUTHORIZATION_HEADER);
-            return findEmailFromRequest(authHeader);
+            return findClaimsFromRequest(authHeader);
         } catch (final Exception e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, CommonErrorCode.UNAUTHORIZED.getMessage());
         }
@@ -57,10 +57,10 @@ class JwtAuthenticationFilter implements Filter {
         return null;
     }
 
-    private String findEmailFromRequest(final String authHeader) {
-        final String email = parseLoginTokenUseCase.parseClaims(authHeader);
-        if (StringUtils.hasText(email)) {
-            return email;
+    private LoginTokenClaims findClaimsFromRequest(final String authHeader) {
+        final LoginTokenClaims claims = parseLoginTokenUseCase.parseClaims(authHeader);
+        if (claims != null) {
+            return claims;
         }
 
         throw new CommonException(CommonErrorCode.UNAUTHORIZED);

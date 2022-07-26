@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static com.mangkyu.moim.hexagonal.app.login.LoginTestSource.loginTokenClaims;
 import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -36,7 +37,7 @@ class OrganizerWebAdapterTest {
     void 권한추가성공() throws Exception {
         final AddOrganizerRoleRequest request = addOrganizerRoleRequest();
 
-        doReturn("token")
+        doReturn(loginTokenClaims())
                 .when(tokenUseCase)
                 .parseClaims(any());
 
@@ -55,7 +56,8 @@ class OrganizerWebAdapterTest {
     @Test
     void 사용자정보수정성공() throws Exception {
         final ModifyOrganizerRequest request = modifyOrganizerRequest();
-        doReturn("token")
+
+        doReturn(loginTokenClaims())
                 .when(tokenUseCase)
                 .parseClaims(any());
 

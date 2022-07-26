@@ -56,6 +56,7 @@ class ParticipantConverterTest {
     @Test
     void participant에서로addParticipantResponse변환() {
         final Participant participant = participant();
+        participant.addRole(MemberRole.ROLE_PARTICIPANT);
 
         final AddParticipantResponse result = ParticipantConverter.INSTANCE.toAddParticipantResponse(participant);
 
@@ -67,6 +68,7 @@ class ParticipantConverterTest {
         assertThat(result.getLoginId()).isEqualTo(participant.getLoginId());
         assertThat(result.getIntroduce()).isEqualTo(participant.getIntroduce());
         assertThat(result.getLimitedIngredient()).isEqualTo(participant.getLimitedIngredient());
+        assertThat(result.getRoles()).isEqualTo(participant.getRoles());
     }
 
     @Test

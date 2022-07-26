@@ -54,7 +54,8 @@ public interface OrganizerConverter {
             @Mapping(source = "request.member.gender", target = "gender"),
             @Mapping(source = "request.member.email", target = "email"),
             @Mapping(source = "request.member.loginId", target = "loginId"),
-            @Mapping(source = "request.belongs", target = "belongs")
+            @Mapping(source = "request.belongs", target = "belongs"),
+            @Mapping(source = "request.member.roles", target = "roles")
     })
     AddOrganizerResponse toAddOrganizerResponse(Organizer request);
 }

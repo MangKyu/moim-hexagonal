@@ -17,6 +17,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 
+import static com.mangkyu.moim.hexagonal.app.login.LoginTestSource.loginTokenClaims;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -68,7 +69,7 @@ class JwtAuthenticationFilterTest {
 
     @Test
     void 인증필터진행() throws ServletException, IOException {
-        doReturn("email")
+        doReturn(loginTokenClaims())
                 .when(parseLoginTokenUseCase)
                 .parseClaims(headerToken);
 
