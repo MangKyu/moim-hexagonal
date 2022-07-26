@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.mangkyu.moim.hexagonal.app.member.organizer.OrganizerTestSource.organizer;
+import static com.mangkyu.moim.hexagonal.app.login.LoginTestSource.loginTokenClaims;
 import static com.mangkyu.moim.hexagonal.app.member.participant.ParticipantTestSource.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -37,7 +37,7 @@ class ParticipantWebAdapterTest {
     void 권한추가성공() throws Exception {
         final AddParticipantRoleRequest request = addParticipantRoleRequest();
 
-        doReturn("token")
+        doReturn(loginTokenClaims())
                 .when(tokenUseCase)
                 .parseClaims(any());
 
@@ -56,7 +56,8 @@ class ParticipantWebAdapterTest {
     @Test
     void 사용자정보수정성공() throws Exception {
         final ModifyParticipantRequest request = modifyParticipantRequest();
-        doReturn("token")
+
+        doReturn(loginTokenClaims())
                 .when(tokenUseCase)
                 .parseClaims(any());
 

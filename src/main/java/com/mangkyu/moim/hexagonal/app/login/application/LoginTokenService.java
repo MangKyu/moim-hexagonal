@@ -2,9 +2,12 @@ package com.mangkyu.moim.hexagonal.app.login.application;
 
 import com.mangkyu.moim.hexagonal.app.errors.CommonErrorCode;
 import com.mangkyu.moim.hexagonal.app.errors.CommonException;
+import com.mangkyu.moim.hexagonal.app.login.domain.LoginTokenClaims;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.GenerateLoginTokenUseCase;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -14,10 +17,8 @@ import org.springframework.stereotype.Service;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class LoginTokenService implements GenerateLoginTokenUseCase, ParseLoginTokenUseCase {
@@ -26,12 +27,12 @@ public class LoginTokenService implements GenerateLoginTokenUseCase, ParseLoginT
     private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
     @Override
-    public String parseClaims(final String token) {
+    public LoginTokenClaims parseClaims(final String token) {
         if (token == null) {
             throw new CommonException(CommonErrorCode.UNAUTHORIZED);
         }
         final String parsedToken = getTokenFromHeader(token);
-        return getUserEmailFromToken(parsedToken);
+        return createClaimsFromToken(parsedToken);
     }
 
     private String getTokenFromHeader(String header) {
@@ -43,13 +44,26 @@ public class LoginTokenService implements GenerateLoginTokenUseCase, ParseLoginT
         return parsedToken[1];
     }
 
-    private String getUserEmailFromToken(String token) {
+    private LoginTokenClaims createClaimsFromToken(String token) {
         try {
             Claims claims = getClaimsFormToken(token);
-            return (String) claims.get("email");
+            return LoginTokenClaims.builder()
+                    .id(claims.get("id", Long.class))
+                    .gender(Gender.valueOf(claims.get("gender", String.class)))
+                    .email(claims.get("email", String.class))
+                    .loginId(claims.get("loginId", String.class))
+                    .roles(createRoles(claims))
+                    .build();
         } catch (final JwtException exception) {
             throw new CommonException(CommonErrorCode.UNAUTHORIZED, exception);
         }
+    }
+
+    private Set<MemberRole> createRoles(final Claims claims) {
+        final List<String> roles = claims.get("roles", List.class);
+        return roles.stream()
+                .map(MemberRole::valueOf)
+                .collect(Collectors.toSet());
     }
 
     private Claims getClaimsFormToken(String token) {
@@ -87,6 +101,7 @@ public class LoginTokenService implements GenerateLoginTokenUseCase, ParseLoginT
 
     private Map<String, Object> createClaims(final Member member) {
         final Map<String, Object> claims = new HashMap<>();
+        claims.put("id", member.getId());
         claims.put("loginId", member.getLoginId());
         claims.put("gender", member.getGender());
         claims.put("email", member.getEmail());

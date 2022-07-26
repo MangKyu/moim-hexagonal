@@ -1,6 +1,7 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.converter;
 
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.persistence.OrganizerEntity;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerRequest;
 import com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web.AddOrganizerResponse;
@@ -80,6 +81,7 @@ class OrganizerConverterTest {
     @Test
     void organizer에서로addOrganizerResponse변환() {
         final Organizer organizer = organizer();
+        organizer.addRole(MemberRole.ROLE_ORGANIZER);
 
         final AddOrganizerResponse result = OrganizerConverter.INSTANCE.toAddOrganizerResponse(organizer);
 
@@ -90,6 +92,7 @@ class OrganizerConverterTest {
         assertThat(result.getEmail()).isEqualTo(organizer.getEmail());
         assertThat(result.getLoginId()).isEqualTo(organizer.getLoginId());
         assertThat(result.getBelongs()).isEqualTo(organizer.getBelongs());
+        assertThat(result.getRoles()).isEqualTo(organizer.getRoles());
     }
 
 }
