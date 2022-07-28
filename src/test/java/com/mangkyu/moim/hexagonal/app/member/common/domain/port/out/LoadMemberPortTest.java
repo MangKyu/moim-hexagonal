@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Optional;
+
 import static com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource.memberEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,7 +29,7 @@ class LoadMemberPortTest {
     }
 
     @Test
-    void 사용자조회_존재함() {
+    void loginId로사용자조회_존재함() {
         final MemberEntity savedMemberEntity = memberRepository.save(memberEntity());
 
         final Member result = target.findByLoginId(savedMemberEntity.getLoginId());
@@ -37,10 +39,25 @@ class LoadMemberPortTest {
     }
 
     @Test
-    void 사용자조회_존재하지않음() {
+    void loginId로사용자조회_존재하지않음() {
         final Member result = target.findByLoginId("notexists");
 
         assertThat(result).isNull();
+    }
+
+    @Test
+    void id로사용자조회_존재하지않음() {
+        final Optional<Member> result = target.findById(-1L);
+
+        assertThat(result.isPresent()).isFalse();
+    }
+
+    @Test
+    void id로사용자조회_존재함() {
+        final MemberEntity savedMemberEntity = memberRepository.save(memberEntity());
+        final Optional<Member> result = target.findById(savedMemberEntity.getId());
+
+        assertThat(result.isPresent()).isTrue();
     }
 
 }

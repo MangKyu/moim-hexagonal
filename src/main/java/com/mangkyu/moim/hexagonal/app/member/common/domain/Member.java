@@ -29,6 +29,10 @@ public class Member {
         this.password = passwordEncoder.encode(password);
     }
 
+    public void updatePassword(final PasswordEncoder passwordEncoder, final String password) {
+        this.password = passwordEncoder.encode(password);
+    }
+
     public void addRole(final MemberRole role) {
         roles.add(role);
     }
