@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -22,5 +24,11 @@ public class LoadMemberPersistenceAdapter implements LoadMemberPort {
         }
 
         return MemberConverter.INSTANCE.toMember(memberEntity);
+    }
+
+    @Override
+    public Optional<Member> findById(final Long id) {
+        return memberRepository.findById(id)
+                .map(MemberConverter.INSTANCE::toMember);
     }
 }
