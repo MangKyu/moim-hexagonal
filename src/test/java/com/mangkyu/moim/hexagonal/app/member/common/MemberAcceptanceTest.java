@@ -20,24 +20,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MemberAcceptanceTest {
 
     @Test
-    void 비밀번호변경실패_본인이아님() {
-        주최자추가("temp1226@naver.com", "dkssudgktpdy123!@#").jsonPath().getLong("id");
-        final String 로그인토큰 = 로그인토큰("temp1226@naver.com", "dkssudgktpdy123!@#");
-
-        final Long 구성원 = 주최자추가("mangkyu@naver.com", "dkssudgktpdy123!@#").jsonPath().getLong("id");
-        final ExtractableResponse<Response> 구성원조회결과 = 구성원비밀번호변경(구성원, 로그인토큰, "qlalfqjsgh123!@#");
-
-        잘못된토큰으로요청(구성원조회결과);
-    }
-
-    @Test
     void 비밀번호변경성공() {
-        final Long 구성원 = 주최자추가("mangkyu@naver.com", "dkssudgktpdy123!@#").jsonPath().getLong("id");
+        주최자추가("mangkyu@naver.com", "dkssudgktpdy123!@#").jsonPath().getLong("id");
         final String 로그인토큰 = 로그인토큰("mangkyu@naver.com", "dkssudgktpdy123!@#");
 
-        final ExtractableResponse<Response> 비밀번호변경결과 = 구성원비밀번호변경(구성원, 로그인토큰, "qlalfqjsgh123!@#");
+        final ExtractableResponse<Response> 비밀번호변경결과 = 구성원비밀번호변경(로그인토큰, "qlalfqjsgh123!@#");
         final String 변경후토큰 = 로그인토큰("mangkyu@naver.com", "qlalfqjsgh123!@#");
-//        final String 변경후토큰 = 로그인토큰("mangkyu@naver.com", "dkssudgktpdy123!@#");
 
         비밀번호변경성공(비밀번호변경결과, 변경후토큰);
     }
@@ -69,12 +57,12 @@ class MemberAcceptanceTest {
         assertThat(구성원조회결과.statusCode()).isEqualTo(HttpStatus.FORBIDDEN.value());
     }
 
-    private ExtractableResponse<Response> 구성원비밀번호변경(final Long id, final String token, final String password) {
+    private ExtractableResponse<Response> 구성원비밀번호변경(final String token, final String password) {
         return RestAssured.given().log().all()
                 .header("Authorization", "Bearer " + token)
                 .contentType(ContentType.JSON)
                 .body(Map.of("password", password))
-                .when().put("/api/members/{id}/password", id)
+                .when().put("/api/members/me/password")
                 .then().log().all()
                 .extract();
     }

@@ -44,7 +44,7 @@ class MemberWebAdapterTest {
                 .changePassword(anyLong(), anyString());
 
 
-        final ResultActions result = target.perform(MockMvcRequestBuilders.put("/api/members/{id}/password", 1L)
+        final ResultActions result = target.perform(MockMvcRequestBuilders.put("/api/members/me/password")
                 .content(gson.toJson(request))
                 .contentType(MediaType.APPLICATION_JSON));
 
@@ -67,7 +67,7 @@ class MemberWebAdapterTest {
                 .changePassword(anyLong(), anyString());
 
 
-        final ResultActions result = target.perform(MockMvcRequestBuilders.put("/api/members/{id}/password", 1L)
+        final ResultActions result = target.perform(MockMvcRequestBuilders.put("/api/members/me/password", 1L)
                 .content(gson.toJson(request))
                 .contentType(MediaType.APPLICATION_JSON));
 
