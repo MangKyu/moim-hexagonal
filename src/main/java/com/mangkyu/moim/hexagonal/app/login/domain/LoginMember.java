@@ -13,7 +13,7 @@ import java.util.Set;
 @Builder
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
-public class LoginTokenClaims {
+public class LoginMember {
 
     private final Long id;
     private final Gender gender;

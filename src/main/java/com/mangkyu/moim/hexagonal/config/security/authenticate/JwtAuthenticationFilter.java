@@ -2,7 +2,7 @@ package com.mangkyu.moim.hexagonal.config.security.authenticate;
 
 import com.mangkyu.moim.hexagonal.app.errors.CommonErrorCode;
 import com.mangkyu.moim.hexagonal.app.errors.CommonException;
-import com.mangkyu.moim.hexagonal.app.login.domain.LoginTokenClaims;
+import com.mangkyu.moim.hexagonal.app.login.domain.LoginMember;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
@@ -39,7 +39,7 @@ public class JwtAuthenticationFilter implements Filter {
             return;
         }
 
-        final LoginTokenClaims claims = findClaimsFromRequest(request, response);
+        final LoginMember claims = findClaimsFromRequest(request, response);
         if (claims == null) {
             return;
         }
@@ -48,7 +48,7 @@ public class JwtAuthenticationFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-    private LoginTokenClaims findClaimsFromRequest(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+    private LoginMember findClaimsFromRequest(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
         try {
             final String authHeader = request.getHeader(AUTHORIZATION_HEADER);
             return findClaimsFromRequest(authHeader);
@@ -59,8 +59,8 @@ public class JwtAuthenticationFilter implements Filter {
         return null;
     }
 
-    private LoginTokenClaims findClaimsFromRequest(final String authHeader) {
-        final LoginTokenClaims claims = parseLoginTokenUseCase.parseClaims(authHeader);
+    private LoginMember findClaimsFromRequest(final String authHeader) {
+        final LoginMember claims = parseLoginTokenUseCase.parseClaims(authHeader);
         if (claims != null) {
             return claims;
         }

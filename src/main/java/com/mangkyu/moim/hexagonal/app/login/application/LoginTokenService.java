@@ -2,7 +2,7 @@ package com.mangkyu.moim.hexagonal.app.login.application;
 
 import com.mangkyu.moim.hexagonal.app.errors.CommonErrorCode;
 import com.mangkyu.moim.hexagonal.app.errors.CommonException;
-import com.mangkyu.moim.hexagonal.app.login.domain.LoginTokenClaims;
+import com.mangkyu.moim.hexagonal.app.login.domain.LoginMember;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.GenerateLoginTokenUseCase;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
@@ -27,7 +27,7 @@ public class LoginTokenService implements GenerateLoginTokenUseCase, ParseLoginT
     private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
     @Override
-    public LoginTokenClaims parseClaims(final String token) {
+    public LoginMember parseClaims(final String token) {
         if (token == null) {
             throw new CommonException(CommonErrorCode.UNAUTHORIZED);
         }
@@ -44,10 +44,10 @@ public class LoginTokenService implements GenerateLoginTokenUseCase, ParseLoginT
         return parsedToken[1];
     }
 
-    private LoginTokenClaims createClaimsFromToken(String token) {
+    private LoginMember createClaimsFromToken(String token) {
         try {
             Claims claims = getClaimsFormToken(token);
-            return LoginTokenClaims.builder()
+            return LoginMember.builder()
                     .id(claims.get("id", Long.class))
                     .gender(Gender.valueOf(claims.get("gender", String.class)))
                     .email(claims.get("email", String.class))

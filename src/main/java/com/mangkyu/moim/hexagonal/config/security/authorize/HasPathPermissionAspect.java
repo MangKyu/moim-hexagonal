@@ -2,7 +2,7 @@ package com.mangkyu.moim.hexagonal.config.security.authorize;
 
 import com.mangkyu.moim.hexagonal.app.errors.CommonErrorCode;
 import com.mangkyu.moim.hexagonal.app.errors.CommonException;
-import com.mangkyu.moim.hexagonal.app.login.domain.LoginTokenClaims;
+import com.mangkyu.moim.hexagonal.app.login.domain.LoginMember;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -22,7 +22,7 @@ public class HasPathPermissionAspect {
     @Around("@annotation(hasPathPermission)")
     public Object aspectParameter(final ProceedingJoinPoint joinPoint, final HasPathPermission hasPathPermission) throws Throwable {
         final Long pathValue = findPathValue(joinPoint, hasPathPermission);
-        final LoginTokenClaims tokenClaims = getLoginTokenClaims();
+        final LoginMember tokenClaims = getLoginTokenClaims();
 
         if (tokenClaims == null) {
             throw new CommonException(CommonErrorCode.UNAUTHORIZED);
@@ -35,8 +35,8 @@ public class HasPathPermissionAspect {
         return joinPoint.proceed();
     }
 
-    private LoginTokenClaims getLoginTokenClaims() {
-        return (LoginTokenClaims) RequestContextHolder.currentRequestAttributes().getAttribute(TOKEN_CLAIMS, SCOPE_REQUEST);
+    private LoginMember getLoginTokenClaims() {
+        return (LoginMember) RequestContextHolder.currentRequestAttributes().getAttribute(TOKEN_CLAIMS, SCOPE_REQUEST);
     }
 
     private Long findPathValue(final ProceedingJoinPoint joinPoint, final HasPathPermission hasPathPermission) {

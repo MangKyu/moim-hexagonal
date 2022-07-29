@@ -2,7 +2,7 @@ package com.mangkyu.moim.hexagonal.app.login;
 
 import com.mangkyu.moim.hexagonal.app.login.adapter.web.LoginRequest;
 import com.mangkyu.moim.hexagonal.app.login.domain.Login;
-import com.mangkyu.moim.hexagonal.app.login.domain.LoginTokenClaims;
+import com.mangkyu.moim.hexagonal.app.login.domain.LoginMember;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberRole;
 
@@ -31,8 +31,8 @@ public class LoginTestSource {
                 .build();
     }
 
-    public static LoginTokenClaims loginTokenClaims() {
-        return LoginTokenClaims.builder()
+    public static LoginMember loginTokenClaims() {
+        return LoginMember.builder()
                 .id(1L)
                 .gender(Gender.MALE)
                 .email("mangkyu@naver.com")
@@ -41,8 +41,8 @@ public class LoginTestSource {
                 .build();
     }
 
-    public static LoginTokenClaims loginTokenClaims(final MemberRole role) {
-        return LoginTokenClaims.builder()
+    public static LoginMember loginTokenClaims(final MemberRole role) {
+        return LoginMember.builder()
                 .id(1L)
                 .gender(Gender.MALE)
                 .email("mangkyu@naver.com")

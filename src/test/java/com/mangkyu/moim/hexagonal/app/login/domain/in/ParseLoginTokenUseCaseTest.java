@@ -3,7 +3,7 @@ package com.mangkyu.moim.hexagonal.app.login.domain.in;
 import com.mangkyu.moim.hexagonal.app.errors.CommonErrorCode;
 import com.mangkyu.moim.hexagonal.app.errors.CommonException;
 import com.mangkyu.moim.hexagonal.app.login.application.LoginTokenService;
-import com.mangkyu.moim.hexagonal.app.login.domain.LoginTokenClaims;
+import com.mangkyu.moim.hexagonal.app.login.domain.LoginMember;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ class ParseLoginTokenUseCaseTest {
     void 토큰파싱() {
         final Member member = member();
 
-        final LoginTokenClaims claims = target.parseClaims(generateToken(member));
+        final LoginMember claims = target.parseClaims(generateToken(member));
 
         assertThat(claims.getLoginId()).isEqualTo(member.getLoginId());
     }
