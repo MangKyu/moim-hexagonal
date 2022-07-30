@@ -1,11 +1,9 @@
-package com.mangkyu.moim.hexagonal.app.member.common.domain.in;
+package com.mangkyu.moim.hexagonal.app.member.common.application;
 
-import com.mangkyu.moim.hexagonal.app.member.common.application.AppendMemberInfoService;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberInfo;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.in.AppendMemberInfoUseCase;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.out.LoadMemberPort;
-import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberErrorCode;
-import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,11 +12,10 @@ import java.util.Optional;
 import static com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource.member;
 import static com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource.memberInfo;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-class AppendMemberInfoUseCaseTest {
+class AppendMemberInfoServiceTest {
 
     private AppendMemberInfoUseCase target;
     private LoadMemberPort loadMemberPort;
@@ -27,21 +24,6 @@ class AppendMemberInfoUseCaseTest {
     void setUp() {
         loadMemberPort = mock(LoadMemberPort.class);
         target = new AppendMemberInfoService(loadMemberPort);
-    }
-
-    @Test
-    void 구성원정보추가_구성원이없음() {
-        final MemberInfo memberInfo = memberInfo();
-
-        doReturn(Optional.empty())
-                .when(loadMemberPort)
-                .findById(memberInfo.getId());
-
-        final MemberException result = assertThrows(
-                MemberException.class,
-                () -> target.appendMemberInfo(memberInfo));
-
-        assertThat(result.getErrorCode()).isEqualTo(MemberErrorCode.NOT_EXIST_MEMBER);
     }
 
     @Test

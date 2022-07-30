@@ -35,7 +35,6 @@ class MemberWebAdapter {
 
     @GetMapping("/api/members/me")
     public ResponseEntity<MemberInfoResponse> getMemberInfo(@Authenticated final LoginMember loginMember) {
-
         final MemberInfo memberInfo = getMemberInfoUseCase.getMemberInfo(loginMember.getId());
         return ResponseEntity.ok(MemberConverter.INSTANCE.toMemberInfoResponse(memberInfo));
     }

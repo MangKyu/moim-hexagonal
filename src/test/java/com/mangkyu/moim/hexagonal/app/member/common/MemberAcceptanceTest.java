@@ -33,17 +33,17 @@ class MemberAcceptanceTest {
     @Test
     void 구성원정보조회실패_잘못된토큰() {
         final Long 구성원 = 주최자추가("mangkyu@naver.com", "dkssudgktpdy123!@#").jsonPath().getLong("id");
-        final ExtractableResponse<Response> 구성원조회결과 = 구성원조회(구성원, "Invalid token");
+        final ExtractableResponse<Response> 구성원조회결과 = 구성원조회("Invalid token");
 
         잘못된토큰으로요청(구성원조회결과);
     }
 
     @Test
     void 주최자정보조회성공() {
-        final Long 구성원 = 주최자추가("mangkyu@naver.com", "dkssudgktpdy123!@#").jsonPath().getLong("id");
+        주최자추가("mangkyu@naver.com", "dkssudgktpdy123!@#").jsonPath().getLong("id");
         final String 로그인토큰 = 로그인토큰("mangkyu@naver.com", "dkssudgktpdy123!@#");
 
-        final ExtractableResponse<Response> 구성원조회결과 = 구성원조회(구성원, 로그인토큰);
+        final ExtractableResponse<Response> 구성원조회결과 = 구성원조회(로그인토큰);
 
         요청성공(구성원조회결과);
         주최자정보가존재함(구성원조회결과);
@@ -52,10 +52,10 @@ class MemberAcceptanceTest {
 
     @Test
     void 참여자정보조회성공() {
-        final Long 구성원 = 참여자추가("mangkyu@naver.com", "dkssudgktpdy123!@#").jsonPath().getLong("id");
+        참여자추가("mangkyu@naver.com", "dkssudgktpdy123!@#").jsonPath().getLong("id");
         final String 로그인토큰 = 로그인토큰("mangkyu@naver.com", "dkssudgktpdy123!@#");
 
-        final ExtractableResponse<Response> 구성원조회결과 = 구성원조회(구성원, 로그인토큰);
+        final ExtractableResponse<Response> 구성원조회결과 = 구성원조회(로그인토큰);
 
         요청성공(구성원조회결과);
         주최자정보는존재하지않음(구성원조회결과);
