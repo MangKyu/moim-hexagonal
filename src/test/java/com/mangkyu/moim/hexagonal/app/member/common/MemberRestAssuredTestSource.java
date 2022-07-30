@@ -1,33 +1,17 @@
 package com.mangkyu.moim.hexagonal.app.member.common;
 
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import org.springframework.util.StringUtils;
-
-import java.util.Map;
 
 public class MemberRestAssuredTestSource {
 
-//    public static ExtractableResponse<Response> 구성원추가(final String email, final String password) {
-//        return RestAssured.given().log().all()
-//                .body(addMemberParams(email, password))
-//                .contentType(ContentType.JSON)
-//                .when().post("/api/members")
-//                .then().log().all()
-//                .extract();
-//    }
-//
-//    public static Map<String, Object> addMemberParams(final String email, final String password) {
-//        return Map.of("email", nullToBlank(email), "password", nullToBlank(password));
-//    }
-//
-//    private static String nullToBlank(final String input) {
-//        if (StringUtils.hasText(input)) {
-//            return input;
-//        }
-//
-//        return "";
-//    }
+    public static ExtractableResponse<Response> 구성원조회(final Long 구성원, final String token) {
+        return RestAssured.given().log().all()
+                .auth().oauth2(token)
+                .when().get("/api/members/me", 구성원)
+                .then().log().all()
+                .extract();
+    }
+
 }

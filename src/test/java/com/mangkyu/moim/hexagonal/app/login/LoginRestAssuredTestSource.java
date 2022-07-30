@@ -9,14 +9,6 @@ import java.util.Map;
 
 public class LoginRestAssuredTestSource {
 
-    public static ExtractableResponse<Response> 구성원조회(final Long 구성원, final String token) {
-        return RestAssured.given().log().all()
-                .auth().oauth2(token)
-                .when().get("/api/members/{id}", 구성원)
-                .then().log().all()
-                .extract();
-    }
-
     public static ExtractableResponse<Response> 로그인(final String loginId, final String password) {
         return RestAssured.given().log().all()
                 .body(loginParams(loginId, password))
