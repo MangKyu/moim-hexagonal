@@ -59,7 +59,7 @@ class MemberAcceptanceTest {
 
     private ExtractableResponse<Response> 구성원비밀번호변경(final String token, final String password) {
         return RestAssured.given().log().all()
-                .header("Authorization", "Bearer " + token)
+                .auth().oauth2(token)
                 .contentType(ContentType.JSON)
                 .body(Map.of("password", password))
                 .when().put("/api/members/me/password")

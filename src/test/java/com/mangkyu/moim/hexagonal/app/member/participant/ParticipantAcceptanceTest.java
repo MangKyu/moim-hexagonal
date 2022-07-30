@@ -108,7 +108,7 @@ class ParticipantAcceptanceTest {
 
     private ExtractableResponse<Response> 참여자정보수정(final Long id, final String token) {
         return RestAssured.given().log().all()
-                .header("Authorization", "Bearer " + token)
+                .auth().oauth2(token)
                 .body(modifyParticipantParam())
                 .contentType(ContentType.JSON)
                 .when().patch("/api/members/participants/{id}", id)
@@ -118,7 +118,7 @@ class ParticipantAcceptanceTest {
 
     private ExtractableResponse<Response> 참여자자신정보수정(final String token) {
         return RestAssured.given().log().all()
-                .header("Authorization", "Bearer " + token)
+                .auth().oauth2(token)
                 .body(modifyParticipantParam())
                 .contentType(ContentType.JSON)
                 .when().patch("/api/members/participants/me")

@@ -107,7 +107,7 @@ class OrganizerAcceptanceTest {
 
     private ExtractableResponse<Response> 주최자정보수정(final Long id, final String token) {
         return RestAssured.given().log().all()
-                .header("Authorization", "Bearer " + token)
+                .auth().oauth2(token)
                 .body(modifyOrganizerParam())
                 .contentType(ContentType.JSON)
                 .when().patch("/api/members/organizers/{id}", id)
@@ -118,7 +118,7 @@ class OrganizerAcceptanceTest {
 
     private ExtractableResponse<Response> 주최자자신정보수정(final String token) {
         return RestAssured.given().log().all()
-                .header("Authorization", "Bearer " + token)
+                .auth().oauth2(token)
                 .body(modifyOrganizerParam())
                 .contentType(ContentType.JSON)
                 .when().patch("/api/members/organizers/me")

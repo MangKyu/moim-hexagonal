@@ -11,7 +11,7 @@ public class LoginRestAssuredTestSource {
 
     public static ExtractableResponse<Response> 구성원조회(final Long 구성원, final String token) {
         return RestAssured.given().log().all()
-                .header("Authorization", "Bearer " + token)
+                .auth().oauth2(token)
                 .when().get("/api/members/{id}", 구성원)
                 .then().log().all()
                 .extract();

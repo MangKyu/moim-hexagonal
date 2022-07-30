@@ -12,7 +12,7 @@ public class ParticipantRestAssuredTestSource {
 
     public static ExtractableResponse<Response> 참여자역할추가(final Long id, final String token) {
         return RestAssured.given().log().all()
-                .header("Authorization", "Bearer " + token)
+                .auth().oauth2(token)
                 .body(addParticipantRoleParam())
                 .contentType(ContentType.JSON)
                 .when().post("/api/members/participants/{id}/role", id)
