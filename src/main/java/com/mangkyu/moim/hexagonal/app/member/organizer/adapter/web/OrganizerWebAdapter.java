@@ -1,8 +1,10 @@
 package com.mangkyu.moim.hexagonal.app.member.organizer.adapter.web;
 
+import com.mangkyu.moim.hexagonal.app.login.domain.LoginMember;
 import com.mangkyu.moim.hexagonal.app.member.organizer.converter.OrganizerConverter;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
 import com.mangkyu.moim.hexagonal.app.member.organizer.domain.port.in.OrganizerUseCase;
+import com.mangkyu.moim.hexagonal.config.security.authenticate.Authenticated;
 import com.mangkyu.moim.hexagonal.config.security.authorize.HasPathPermission;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,15 @@ class OrganizerWebAdapter {
             @RequestBody @Valid final ModifyOrganizerRequest request) {
 
         final Organizer organizer = organizerUseCase.modifyOrganizer(id, OrganizerConverter.INSTANCE.toOrganizer(request));
+        return ResponseEntity.ok(OrganizerConverter.INSTANCE.toAddOrganizerResponse(organizer));
+    }
+
+    @PatchMapping("/api/members/organizers/me")
+    public ResponseEntity<AddOrganizerResponse> modifyOrganizer(
+            @Authenticated final LoginMember loginMember,
+            @RequestBody @Valid final ModifyOrganizerRequest request) {
+
+        final Organizer organizer = organizerUseCase.modifyOrganizer(loginMember.getId(), OrganizerConverter.INSTANCE.toOrganizer(request));
         return ResponseEntity.ok(OrganizerConverter.INSTANCE.toAddOrganizerResponse(organizer));
     }
 

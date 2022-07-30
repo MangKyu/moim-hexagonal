@@ -60,6 +60,16 @@ class ParticipantAcceptanceTest {
     }
 
     @Test
+    void 참여자자신정보변경() {
+        참여자추가("mangkyu1226", "dkssudgktpdy123!@#").jsonPath().getLong("id");
+        final String 토큰 = 로그인토큰("mangkyu1226", "dkssudgktpdy123!@#");
+
+        final ExtractableResponse<Response> 참여자추가결과 = 참여자자신정보수정(토큰);
+
+        수정성공(참여자추가결과);
+    }
+
+    @Test
     void 참여자권한추가실패_중복권한() {
         final Long 참여자 = 참여자추가("mangkyu1226", "dkssudgktpdy123!@#").jsonPath().getLong("id");
         final String 토큰 = 로그인토큰("mangkyu1226", "dkssudgktpdy123!@#");
@@ -102,6 +112,16 @@ class ParticipantAcceptanceTest {
                 .body(modifyParticipantParam())
                 .contentType(ContentType.JSON)
                 .when().patch("/api/members/participants/{id}", id)
+                .then().log().all()
+                .extract();
+    }
+
+    private ExtractableResponse<Response> 참여자자신정보수정(final String token) {
+        return RestAssured.given().log().all()
+                .header("Authorization", "Bearer " + token)
+                .body(modifyParticipantParam())
+                .contentType(ContentType.JSON)
+                .when().patch("/api/members/participants/me")
                 .then().log().all()
                 .extract();
     }

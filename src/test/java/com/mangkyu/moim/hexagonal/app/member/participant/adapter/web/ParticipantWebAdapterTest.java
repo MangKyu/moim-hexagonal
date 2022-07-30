@@ -74,6 +74,27 @@ class ParticipantWebAdapterTest {
         result.andExpect(status().isOk());
     }
 
+    @Test
+    void 자신정보수정성공() throws Exception {
+        final ModifyParticipantRequest request = modifyParticipantRequest();
+
+        doReturn(loginTokenClaims())
+                .when(tokenUseCase)
+                .parseClaims(any());
+
+        doReturn(participant())
+                .when(participantUseCase)
+                .addParticipant(any(Participant.class));
+
+        final ResultActions result = target.perform(
+                MockMvcRequestBuilders.patch("/api/members/participants/me")
+                        .header("Authorization", "Bearer " + "token")
+                        .content(gson.toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isOk());
+    }
+
     @CsvSource({
             "mangkyu,dkssudgktpdy123!@#", ",dkssudgktpdy123!@#",
             "mangkyu@naver.com,", "mangkyu@naver.com, gk13!@", "mangkyu@naver.com, 123123@#", "mangkyu@naver.com, dkssudgktpdy123", "mangkyu@naver.com, gkdsgasdg!@"

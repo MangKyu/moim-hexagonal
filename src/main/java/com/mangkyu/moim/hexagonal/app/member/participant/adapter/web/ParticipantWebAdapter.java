@@ -1,8 +1,10 @@
 package com.mangkyu.moim.hexagonal.app.member.participant.adapter.web;
 
+import com.mangkyu.moim.hexagonal.app.login.domain.LoginMember;
 import com.mangkyu.moim.hexagonal.app.member.participant.converter.ParticipantConverter;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.Participant;
 import com.mangkyu.moim.hexagonal.app.member.participant.domain.port.in.ParticipantUseCase;
+import com.mangkyu.moim.hexagonal.config.security.authenticate.Authenticated;
 import com.mangkyu.moim.hexagonal.config.security.authorize.HasPathPermission;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,15 @@ class ParticipantWebAdapter {
             @RequestBody @Valid final ModifyParticipantRequest request) {
 
         final Participant participant = participantUseCase.modifyParticipant(id, ParticipantConverter.INSTANCE.toParticipant(request));
+        return ResponseEntity.ok(ParticipantConverter.INSTANCE.toAddParticipantResponse(participant));
+    }
+
+    @PatchMapping("/api/members/participants/me")
+    public ResponseEntity<AddParticipantResponse> modifyParticipant(
+            @Authenticated final LoginMember loginMember,
+            @RequestBody @Valid final ModifyParticipantRequest request) {
+
+        final Participant participant = participantUseCase.modifyParticipant(loginMember.getId(), ParticipantConverter.INSTANCE.toParticipant(request));
         return ResponseEntity.ok(ParticipantConverter.INSTANCE.toAddParticipantResponse(participant));
     }
 
