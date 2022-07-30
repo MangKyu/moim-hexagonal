@@ -1,5 +1,7 @@
 package com.mangkyu.moim.hexagonal.app.member.common.domain;
 
+import com.mangkyu.moim.hexagonal.app.member.organizer.domain.Organizer;
+import com.mangkyu.moim.hexagonal.app.member.participant.domain.Participant;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -33,6 +35,15 @@ public class MemberInfo {
         this.loginId = member.getLoginId();
         this.password = member.getPassword();
         this.roles = member.getRoles();
+    }
+
+    public void update(final Participant participant) {
+        this.limitedIngredient = participant.getLimitedIngredient();
+        this.introduce = participant.getIntroduce();
+    }
+
+    public void update(final Organizer organizer) {
+        this.belongs = organizer.getBelongs();
     }
 
 }
