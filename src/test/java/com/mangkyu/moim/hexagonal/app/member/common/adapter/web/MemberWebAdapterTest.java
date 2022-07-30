@@ -2,7 +2,9 @@ package com.mangkyu.moim.hexagonal.app.member.common.adapter.web;
 
 import com.google.gson.Gson;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
-import com.mangkyu.moim.hexagonal.app.member.common.domain.in.MemberUseCase;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.MemberInfo;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.in.ChangePasswordUseCase;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.in.GetMemberInfoUseCase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -14,6 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.mangkyu.moim.hexagonal.app.login.LoginTestSource.loginTokenClaims;
+import static com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource.memberInfo;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -27,9 +30,27 @@ class MemberWebAdapterTest {
     @Autowired
     private Gson gson;
     @Autowired
-    private MemberUseCase memberUseCase;
+    private ChangePasswordUseCase changePasswordUseCase;
+    @Autowired
+    private GetMemberInfoUseCase getMemberInfoUseCase;
     @Autowired
     private ParseLoginTokenUseCase tokenUseCase;
+
+    @Test
+    void 사용자정보조회성공() throws Exception {
+        doReturn(loginTokenClaims())
+                .when(tokenUseCase)
+                .parseClaims(any());
+
+        doReturn(memberInfo())
+                .when(getMemberInfoUseCase)
+                .getMemberInfo(anyLong());
+
+
+        final ResultActions result = target.perform(MockMvcRequestBuilders.get("/api/members/me"));
+
+        result.andExpect(status().isOk());
+    }
 
     @Test
     void 권한추가성공() throws Exception {
@@ -40,7 +61,7 @@ class MemberWebAdapterTest {
                 .parseClaims(any());
 
         doNothing()
-                .when(memberUseCase)
+                .when(changePasswordUseCase)
                 .changePassword(anyLong(), anyString());
 
 
@@ -63,7 +84,7 @@ class MemberWebAdapterTest {
                 .parseClaims(any());
 
         doNothing()
-                .when(memberUseCase)
+                .when(changePasswordUseCase)
                 .changePassword(anyLong(), anyString());
 
 

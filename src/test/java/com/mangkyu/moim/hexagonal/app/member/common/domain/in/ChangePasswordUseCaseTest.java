@@ -1,6 +1,6 @@
 package com.mangkyu.moim.hexagonal.app.member.common.domain.in;
 
-import com.mangkyu.moim.hexagonal.app.member.common.application.MemberService;
+import com.mangkyu.moim.hexagonal.app.member.common.application.ChangePasswordService;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.out.LoadMemberPort;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.out.SaveMemberPort;
@@ -16,9 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-class MemberUseCaseTest {
+class ChangePasswordUseCaseTest {
 
-    private MemberUseCase target;
+    private ChangePasswordUseCase target;
     private LoadMemberPort loadMemberPort;
     private SaveMemberPort saveMemberPort;
     private PasswordEncoder passwordEncoder;
@@ -28,7 +28,7 @@ class MemberUseCaseTest {
         loadMemberPort = mock(LoadMemberPort.class);
         saveMemberPort = mock(SaveMemberPort.class);
         passwordEncoder = spy(BCryptPasswordEncoder.class);
-        target = new MemberService(loadMemberPort, saveMemberPort, passwordEncoder);
+        target = new ChangePasswordService(loadMemberPort, saveMemberPort, passwordEncoder);
     }
 
     @Test

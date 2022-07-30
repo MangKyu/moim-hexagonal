@@ -1,7 +1,7 @@
 package com.mangkyu.moim.hexagonal.app.member.common.application;
 
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
-import com.mangkyu.moim.hexagonal.app.member.common.domain.in.MemberUseCase;
+import com.mangkyu.moim.hexagonal.app.member.common.domain.in.ChangePasswordUseCase;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.out.LoadMemberPort;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.out.SaveMemberPort;
 import com.mangkyu.moim.hexagonal.app.member.common.errors.MemberErrorCode;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService implements MemberUseCase {
+public class ChangePasswordService implements ChangePasswordUseCase {
 
     private final LoadMemberPort loadMemberPort;
     private final SaveMemberPort saveMemberPort;
