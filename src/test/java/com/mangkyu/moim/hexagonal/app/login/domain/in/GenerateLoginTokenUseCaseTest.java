@@ -1,6 +1,7 @@
 package com.mangkyu.moim.hexagonal.app.login.domain.in;
 
 import com.mangkyu.moim.hexagonal.app.login.application.LoginTokenService;
+import com.mangkyu.moim.hexagonal.app.login.domain.LoginToken;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,16 @@ class GenerateLoginTokenUseCaseTest {
     void 토큰발급() {
         final Member member = member();
 
-        final String result = target.generate(member);
+        final LoginToken result = target.generate(member);
+
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void 토큰발급_New() {
+        final Member member = member();
+
+        final LoginToken result = target.generate(member);
 
         assertThat(result).isNotNull();
     }

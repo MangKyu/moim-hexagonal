@@ -2,6 +2,7 @@ package com.mangkyu.moim.hexagonal.app.login.domain.in;
 
 import com.mangkyu.moim.hexagonal.app.login.application.LoginService;
 import com.mangkyu.moim.hexagonal.app.login.domain.Login;
+import com.mangkyu.moim.hexagonal.app.login.domain.LoginToken;
 import com.mangkyu.moim.hexagonal.app.login.errors.LoginErrorCode;
 import com.mangkyu.moim.hexagonal.app.login.errors.LoginException;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static com.mangkyu.moim.hexagonal.app.login.LoginTestSource.login;
+import static com.mangkyu.moim.hexagonal.app.login.LoginTestSource.loginToken;
 import static com.mangkyu.moim.hexagonal.app.member.common.MemberTestSource.member;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -75,12 +77,13 @@ class LoginUseCaseTest {
                 .when(loadMemberPort)
                 .findByLoginId(login.getLoginId());
 
-        doReturn("accessToken")
+        doReturn(loginToken())
                 .when(generateLoginTokenUseCase)
                 .generate(member);
 
-        final String result = target.login(login);
+        final LoginToken result = target.login(login);
         assertThat(result).isNotNull();
     }
+
 
 }

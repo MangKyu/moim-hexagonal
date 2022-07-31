@@ -43,7 +43,7 @@ class ParseLoginTokenUseCaseTest {
     }
 
     private String generateToken(final Member member) {
-        return "Bearer " + new LoginTokenService().generate(member);
+        return "Bearer " + new LoginTokenService().generate(member).getAccessToken();
     }
 
 }

@@ -3,6 +3,7 @@ package com.mangkyu.moim.hexagonal.app.login.application;
 import com.mangkyu.moim.hexagonal.app.errors.CommonErrorCode;
 import com.mangkyu.moim.hexagonal.app.errors.CommonException;
 import com.mangkyu.moim.hexagonal.app.login.domain.LoginMember;
+import com.mangkyu.moim.hexagonal.app.login.domain.LoginToken;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.GenerateLoginTokenUseCase;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.ParseLoginTokenUseCase;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Gender;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
+import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -74,13 +76,37 @@ public class LoginTokenService implements GenerateLoginTokenUseCase, ParseLoginT
     }
 
     @Override
-    public String generate(final Member member) {
+    public LoginToken generate(final Member member) {
+        return LoginToken.builder()
+                .accessToken(generate(member, createExpireDateForOneDay()))
+                .refreshToken(generate(member, createExpireDateForOneMonth()))
+                .tokenType("Bearer")
+                .expiresIn(Duration.ofDays(1).toSeconds())
+                .build();
+    }
+
+    private String generateToken(final Member member) {
         return Jwts.builder()
                 .setSubject(member.getLoginId())
                 .setHeader(createHeader())
                 .setClaims(createClaims(member))
                 .setExpiration(createExpireDateForOneMonth())
                 .signWith(signatureAlgorithm, createSigningKey()).compact();
+    }
+
+    private String generate(final Member member, final Date date) {
+        return Jwts.builder()
+                .setSubject(member.getLoginId())
+                .setHeader(createHeader())
+                .setClaims(createClaims(member))
+                .setExpiration(date)
+                .signWith(signatureAlgorithm, createSigningKey()).compact();
+    }
+
+    private Date createExpireDateForOneDay() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.HOUR, 24);
+        return c.getTime();
     }
 
     private Date createExpireDateForOneMonth() {

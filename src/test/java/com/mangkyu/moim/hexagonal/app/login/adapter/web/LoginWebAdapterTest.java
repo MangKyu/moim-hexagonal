@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.mangkyu.moim.hexagonal.app.login.LoginTestSource.loginRequest;
+import static com.mangkyu.moim.hexagonal.app.login.LoginTestSource.loginToken;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -45,7 +46,7 @@ class LoginWebAdapterTest {
 
     @Test
     void 로그인성공() throws Exception {
-        doReturn("accessToken")
+        doReturn(loginToken())
                 .when(loginUseCase)
                 .login(any(Login.class));
 
