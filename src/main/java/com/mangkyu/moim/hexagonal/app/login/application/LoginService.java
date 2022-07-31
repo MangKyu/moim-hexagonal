@@ -4,6 +4,7 @@ import com.mangkyu.moim.hexagonal.app.login.domain.Login;
 import com.mangkyu.moim.hexagonal.app.login.domain.LoginToken;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.GenerateLoginTokenUseCase;
 import com.mangkyu.moim.hexagonal.app.login.domain.in.LoginUseCase;
+import com.mangkyu.moim.hexagonal.app.login.domain.out.SaveLoginTokenPort;
 import com.mangkyu.moim.hexagonal.app.login.errors.LoginErrorCode;
 import com.mangkyu.moim.hexagonal.app.login.errors.LoginException;
 import com.mangkyu.moim.hexagonal.app.member.common.domain.Member;
@@ -21,6 +22,7 @@ public class LoginService implements LoginUseCase {
     private final LoadMemberPort loadMemberPort;
     private final PasswordEncoder passwordEncoder;
     private final GenerateLoginTokenUseCase generateLoginTokenUseCase;
+    private final SaveLoginTokenPort saveLoginTokenPort;
 
     @Override
     public LoginToken login(final Login login) {
@@ -33,6 +35,7 @@ public class LoginService implements LoginUseCase {
             throw new LoginException(LogLevel.INFO, LoginErrorCode.INVALID_EMAIL_OR_PASSWORD);
         }
 
-        return generateLoginTokenUseCase.generate(member);
+        final LoginToken loginToken = generateLoginTokenUseCase.generate(member);
+        return saveLoginTokenPort.save(loginToken);
     }
 }
